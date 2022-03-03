@@ -124,7 +124,24 @@ Hi {username}! You’ve successfully authenticated, but GitHub does not provide 
 
 # QNAP NAS login with SSH
 
+Workaround is to use same public key as your other servers.
 
+For example from ubuntu server copy authorized_keys file to home directory
+
+cp ~/.ssh/authorized_keys /home/gladiator/public.key
+
+Download with public.key file then import in NAS or another linux server.
+now copy it as authorized_key file in the new server.
+
+
+cp /path/to/public.key ~/.ssh/authorized_keys 
+
+view file to make sure it copied correctly.
+cat ~/.ssh/authorized_keys  
+
+Now you can use same private key for authentication to different server.
+
+===============================================
 
 SSH: How To Set Up Authorized Keys
 Below is a quick how-to for implementing public / private key authentication for SSH. This is by no means an exhaustive examination of the subject.  *nix distributions vary slightly and further research may be needed.

@@ -96,3 +96,10 @@ Restore the volume with a tarball archive.
 ## Troubleshooting
 ### Networking
 `docker run --name netshoot --rm -it nicolaka/netshoot /bin/bash`
+
+
+## Create docker compose file from running container.
+
+`docker run --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/red5d/docker-autocompose <container-name-or-id> <additional-names-or-ids>...`
+
+https://stackoverflow.com/questions/68881240/is-there-possibility-in-portainer-to-create-docker-compose-yml-file-from-running

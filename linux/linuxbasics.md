@@ -9,5 +9,8 @@ COMMAND | DESCRIPTION
 `man <command>` | manual for perticular command
 `rm -rf` | remove r for recursive and f for force
 `mkdir` | make directory
+`echo $0` | shows default shell
+`bash` | change to bash shell from -sh
+
 
 ## Sed
