@@ -378,20 +378,90 @@ pre code {
 </thead>
 <tbody>
 <tr class="odd">
+<td align="right"><code>git config --global user.name &quot;John Doe&quot;</code></td>
+<td align="left">Set username</td>
+</tr>
+<tr class="even">
+<td align="right"><code>git config --global user.email johndoe@example.com</code></td>
+<td align="left">set email</td>
+</tr>
+<tr class="odd">
+<td align="right"><code>git config --global init.defaultBranch main</code></td>
+<td align="left">Setup default branch to main instead of master</td>
+</tr>
+<tr class="even">
 <td align="right"><code>git config --list</code></td>
 <td align="left">git configuration</td>
 </tr>
-<tr class="even">
-<td align="right"><code>git remote set-url origin git://new.url.here</code></td>
-<td align="left">this is how you set remote url -Instead of removing and
-re-adding, you can do this</td>
-</tr>
-<tr class="odd">
-<td align="right"><code>git remote remove origin</code></td>
-<td align="left">to remove remote</td>
-</tr>
 </tbody>
 </table>
+<p><code>git remote set-url origin git://new.url.here</code> | this is
+how you set remote url -Instead of removing and re-adding, you can do
+this <code>git remote remove origin</code> | to remove remote</p>
+</div>
+<div id="use-existing-ssh-keys" class="section level2">
+<h2>Use existing ssh keys</h2>
+<p>If you have a copy of your ssh keys (e.g., on a USB stick) then
+simply copy the key files to the ~/.ssh/ directory.</p>
+<p>E.g.,</p>
+<p><code>cp /path/to/my/key/id_rsa ~/.ssh/id_rsa</code>
+<code>cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub</code> ## change
+permissions on file <code>sudo chmod 600 ~/.ssh/id_rsa</code>
+<code>sudo chmod 600 ~/.ssh/id_rsa.pub</code> ## start the ssh-agent in
+the background <code>eval $(ssh-agent -s)</code> ## make ssh agent to
+actually use copied key <code>ssh-add ~/.ssh/id_rsa</code></p>
+</div>
+<div id="using-github-with-ssh-secure-shell" class="section level2">
+<h2>Using GitHub with SSH (Secure Shell)</h2>
+<p>Last Updated : 21 Apr, 2020 Secure Shell (SSH) Protocol facilitates
+the communication among systems in an unsecured network by providing a
+secure channel over it. It safeguards the connection to remote servers
+enabling user authentication.</p>
+<p>Using SSH, you can connect to your GitHub account eliminating the
+need of giving username and password each time you push changes to the
+remote repository. The integration process involves setting up SSH Keys
+within both the local and remote systems.</p>
+<p>Connect to GitHub using SSH Note: If you already have an existing SSH
+key, you can skip step 1 and go to step 2. You can verify the same by
+listing all the existing keys using the command:</p>
+<p>$ <code>ls -al ~/.ssh</code> Steps to connect GitHub to SSH :</p>
+<div id="step-1-generate-ssh-key-on-local-system" class="section level4">
+<h4>Step 1: Generate SSH Key on Local System</h4>
+<p>Launch Terminal / Git Bash. Paste the below command and substitute
+your GitHub email address: $
+<code>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code></p>
+<p>Press Enter when prompted “Enter a file in which to save the key”.
+Type a passphrase of your choice. Verify creation of SSH Key:
+$<code>ls -al ~/.ssh</code></p>
+</div>
+<div id="step-2-add-ssh-key-to-ssh-agent" class="section level4">
+<h4>Step 2: Add SSH Key to SSH Agent</h4>
+<p>Initiate ssh-agent: <span class="math inline">\(` eval
+&quot;\)</span>(ssh-agent -s)”
+<code>If your key is generated with a different name, replace id_rsa in the command below:  $</code>
+ssh-add ~/.ssh/id_rsa `</p>
+</div>
+<div id="step-3-add-the-ssh-key-to-your-github-account" class="section level4">
+<h4>Step 3: Add the SSH Key to your GitHub Account</h4>
+<p>Copy key to the clipboard: WINDOWS $
+<code>clip &lt; ~/.ssh/id_rsa.pub</code></p>
+<p>LINUX <code>cat ~/.ssh/id_rsa.pub</code></p>
+<p>OR</p>
+<p>$<code>sudo apt-get install xclip</code> $
+<code>xclip -sel clip &lt; ~/.ssh/id_rsa.pub</code></p>
+<p>MAC $ <code>pbcopy &lt; ~/.ssh/id_rsa.pub</code> Open the GitHub
+website and log in to your account. Go to the settings page from the
+menu in top right corner. Select “SSH and GPG keys” from the sidebar and
+click on “New SSH key” option.</p>
+<p>Add relevant title in the “Title” field and paste the SSH key in the
+“Key field“. Now, click on “Add SSH key“. Step 4: Test the SSH
+Connection</p>
+<p>Launch Terminal / Git Bash. Type: $
+<code>ssh -T git@github.com</code></p>
+<p>Connection is established if you are prompted with the following
+message: Hi {username}! You’ve successfully authenticated, but GitHub
+does not provide shell access.</p>
+</div>
 </div>
 </div>
 
