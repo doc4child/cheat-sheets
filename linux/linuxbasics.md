@@ -9,3 +9,5 @@ COMMAND | DESCRIPTION
 `man <command>` | manual for perticular command
 `rm -rf` | remove r for recursive and f for force
 `mkdir` | make directory
+
+## Sed
