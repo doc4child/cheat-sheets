@@ -5,12 +5,10 @@ COMMAND | DESCRIPTION
 ---:|:---
 `ls` | list files
 `ls -l` | long listing
-`ls -a` | list all files includind . files
-`man <command>` | manual for perticular command
-`rm -rf` | remove r for recursive and f for force
+`ls -a` | list all files including . files
 `mkdir` | make directory
-
-
+`rm -rf` | remove r for recursive and f for force
+`man <command>` | manual for particular command
 
 ## System commands
 COMMAND | DESCRIPTION

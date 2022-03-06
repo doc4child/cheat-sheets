@@ -382,8 +382,8 @@ pre code {
 <td align="left">Set username</td>
 </tr>
 <tr class="even">
-<td align="right"><code>git config --global user.email johndoe@example.com</code></td>
-<td align="left">set email</td>
+<td align="right"><code>git config --global user.email &quot;29556646+account@users.noreply.github.com&quot;</code></td>
+<td align="left">Set email</td>
 </tr>
 <tr class="odd">
 <td align="right"><code>git config --global init.defaultBranch main</code></td>
@@ -391,28 +391,64 @@ pre code {
 </tr>
 <tr class="even">
 <td align="right"><code>git config --list</code></td>
-<td align="left">git configuration</td>
+<td align="left">List git configuration</td>
 </tr>
 </tbody>
 </table>
-<p><code>git remote set-url origin git://new.url.here</code> | this is
-how you set remote url -Instead of removing and re-adding, you can do
-this <code>git remote remove origin</code> | to remove remote</p>
 </div>
 <div id="use-existing-ssh-keys" class="section level2">
 <h2>Use existing ssh keys</h2>
 <p>If you have a copy of your ssh keys (e.g., on a USB stick) then
 simply copy the key files to the ~/.ssh/ directory.</p>
-<p>E.g.,</p>
-<p><code>cp /path/to/my/key/id_rsa ~/.ssh/id_rsa</code>
-<code>cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub</code> ## change
-permissions on file <code>sudo chmod 600 ~/.ssh/id_rsa</code>
-<code>sudo chmod 600 ~/.ssh/id_rsa.pub</code> ## start the ssh-agent in
-the background <code>eval $(ssh-agent -s)</code> ## make ssh agent to
-actually use copied key <code>ssh-add ~/.ssh/id_rsa</code></p>
+<pre class="console"><code>foo@bar:~$ cp /path/to/my/key/id_rsa ~/.ssh/id_rsa`
+foo@bar:~$ cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub`
+## change permissions on file
+foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa`
+foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa.pub`
+## start the ssh-agent in the background
+foo@bar:~$ eval $(ssh-agent -s)`
+## make ssh agent to actually use copied key
+foo@bar:~$ ssh-add ~/.ssh/id_rsa`</code></pre>
+</div>
+<div id="if-it-is-first-time-you-are-setting-up-repository-files-initiate-the-repositoy-and-add-origin" class="section level2">
+<h2>If it is first time you are setting up repository files initiate the
+repositoy and add origin</h2>
+<pre class="console"><code># first navigate to the the appropriate folder.
+foo@bar:~$ git init
+foo@bar:~$ git remote add origin git@github.com:account/repo-name.git
+`git remote set-url origin git://new.url.here` | this is how you set remote url -Instead of removing and re-adding, you can do this note that it is git (SSH) address, not https address. Use this after setting up ssh keys for authentication.
+
+Note:--Fillowing command can remove origin
+foo@bar:~$ git remote remove origin` | to remove remote </code></pre>
+</div>
+<div id="automating-push-changes" class="section level2">
+<h2>Automating push changes</h2>
+<p>This can be done by creating a bash script placed preferably in home
+folder for easy access. Use following template and save as
+filename.sh</p>
+<pre class="console"><code>#!/bin/bash
+# if it is first time init the repositoy and add origin
+# git init
+# git remote add origin git@github.com:account/repo-name.git
+
+# git remote set-url --add --push origin git@github.com:account/repo-name.git
+cd /volumes/rstudio/projects/repo-name
+git remote set-url origin git@github.com:account/repo-name.git
+git add . &amp;&amp; \
+git add -u &amp;&amp; \
+git commit -m &quot;Updated: `date +&#39;%Y-%m-%d %H:%M:%S&#39;`&quot; &amp;&amp; \
+git push -u origin main
+</code></pre>
+</div>
+<div id="assign-executable-permission-to-that-file-then-file-can-be-run-to-execute-that-code-to-push-changes-to-git." class="section level2">
+<h2>Assign executable permission to that file, then file can be run to
+execute that code to push changes to git.</h2>
+<pre class="console"><code>foo@bar:~$ chown +x gp-filename.sh
+foo@bar:~$ ./gp-filename.sh</code></pre>
 </div>
 <div id="using-github-with-ssh-secure-shell" class="section level2">
 <h2>Using GitHub with SSH (Secure Shell)</h2>
+<p><a href="https://www.geeksforgeeks.org/using-github-with-ssh-secure-shell/" class="uri">https://www.geeksforgeeks.org/using-github-with-ssh-secure-shell/</a></p>
 <p>Last Updated : 21 Apr, 2020 Secure Shell (SSH) Protocol facilitates
 the communication among systems in an unsecured network by providing a
 secure channel over it. It safeguards the connection to remote servers
@@ -424,44 +460,99 @@ within both the local and remote systems.</p>
 <p>Connect to GitHub using SSH Note: If you already have an existing SSH
 key, you can skip step 1 and go to step 2. You can verify the same by
 listing all the existing keys using the command:</p>
-<p>$ <code>ls -al ~/.ssh</code> Steps to connect GitHub to SSH :</p>
+<p><code>$ ls -al ~/.ssh</code></p>
+<p>Steps to connect GitHub to SSH :</p>
 <div id="step-1-generate-ssh-key-on-local-system" class="section level4">
 <h4>Step 1: Generate SSH Key on Local System</h4>
 <p>Launch Terminal / Git Bash. Paste the below command and substitute
-your GitHub email address: $
-<code>ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code></p>
+your GitHub email address:</p>
+<p><code>$ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code></p>
 <p>Press Enter when prompted “Enter a file in which to save the key”.
-Type a passphrase of your choice. Verify creation of SSH Key:
-$<code>ls -al ~/.ssh</code></p>
+Type a passphrase of your choice. Verify creation of SSH Key:</p>
+<p><code>$ ls -al ~/.ssh</code></p>
 </div>
 <div id="step-2-add-ssh-key-to-ssh-agent" class="section level4">
 <h4>Step 2: Add SSH Key to SSH Agent</h4>
-<p>Initiate ssh-agent: <span class="math inline">\(` eval
-&quot;\)</span>(ssh-agent -s)”
-<code>If your key is generated with a different name, replace id_rsa in the command below:  $</code>
-ssh-add ~/.ssh/id_rsa `</p>
+<p>Initiate ssh-agent:</p>
+<p><code>$ eval &quot;$(ssh-agent -s)&quot;</code></p>
+<p>If your key is generated with a different name, replace id_rsa in the
+command below:</p>
+<p><code>$ ssh-add ~/.ssh/id_rsa</code></p>
 </div>
 <div id="step-3-add-the-ssh-key-to-your-github-account" class="section level4">
 <h4>Step 3: Add the SSH Key to your GitHub Account</h4>
-<p>Copy key to the clipboard: WINDOWS $
-<code>clip &lt; ~/.ssh/id_rsa.pub</code></p>
-<p>LINUX <code>cat ~/.ssh/id_rsa.pub</code></p>
+<p>Copy key to the clipboard: WINDOWS</p>
+<p><code>$ clip &lt; ~/.ssh/id_rsa.pub</code></p>
+<p>LINUX</p>
+<p><code>cat ~/.ssh/id_rsa.pub</code></p>
 <p>OR</p>
-<p>$<code>sudo apt-get install xclip</code> $
-<code>xclip -sel clip &lt; ~/.ssh/id_rsa.pub</code></p>
-<p>MAC $ <code>pbcopy &lt; ~/.ssh/id_rsa.pub</code> Open the GitHub
-website and log in to your account. Go to the settings page from the
-menu in top right corner. Select “SSH and GPG keys” from the sidebar and
-click on “New SSH key” option.</p>
+<p><code>$ sudo apt-get install xclip</code></p>
+<p><code>$ xclip -sel clip &lt; ~/.ssh/id_rsa.pub</code></p>
+<p>MAC</p>
+<p><code>$pbcopy &lt; ~/.ssh/id_rsa.pub</code></p>
+<p>Open the GitHub website and log in to your account. Go to the
+settings page from the menu in top right corner. Select “SSH and GPG
+keys” from the sidebar and click on “New SSH key” option.</p>
 <p>Add relevant title in the “Title” field and paste the SSH key in the
 “Key field“. Now, click on “Add SSH key“. Step 4: Test the SSH
 Connection</p>
-<p>Launch Terminal / Git Bash. Type: $
-<code>ssh -T git@github.com</code></p>
+<p>Launch Terminal / Git Bash. Type:</p>
+<p><code>$ssh -T git@github.com</code></p>
 <p>Connection is established if you are prompted with the following
 message: Hi {username}! You’ve successfully authenticated, but GitHub
 does not provide shell access.</p>
 </div>
+</div>
+<div id="git-branches" class="section level2">
+<h2>Git branches</h2>
+<p><a href="https://www.nobledesktop.com/learn/git/git-branches" class="uri">https://www.nobledesktop.com/learn/git/git-branches</a></p>
+<p>Git lets you branch out from the original code base. This lets you
+more easily work with other developers, and gives you a lot of
+flexibility in your workflow.</p>
+<p>Here’s an example of how Git branches are useful. Let’s say you need
+to work on a new feature for a website. You create a new branch and
+start working. You haven’t finished your new feature, but you get a
+request to make a rush change that needs to go live on the site today.
+You switch back to the master branch, make the change, and push it live.
+Then you can switch back to your new feature branch and finish your
+work. When you’re done, you merge the new feature branch into the master
+branch, and both the new feature and rush change are kept!</p>
+<p>For All the Commands Below The commands below assume you’ve navigated
+to the folder for the Git repo.</p>
+<p>See What Branch You’re On Run this command: git status List All
+Branches NOTE: The current local branch will be marked with an asterisk
+(*).</p>
+<p>To see local branches, run this command: git branch To see remote
+branches, run this command: git branch -r To see all local and remote
+branches, run this command: git branch -a Create a New Branch Run this
+command (replacing my-branch-name with whatever name you want): git
+checkout -b my-branch-name You’re now ready to commit to this branch.
+Switch to a Branch In Your Local Repo Run this command: git checkout
+my-branch-name Switch to a Branch That Came From a Remote Repo To get a
+list of all branches from the remote, run this command: git pull Run
+this command to switch to the branch: git checkout –track
+origin/my-branch-name Push to a Branch If your local branch does not
+exist on the remote, run either of these commands: git push -u origin
+my-branch-name git push -u origin HEAD NOTE: HEAD is a reference to the
+top of the current branch, so it’s an easy way to push to a branch of
+the same name on the remote. This saves you from having to type out the
+exact name of the branch!</p>
+<p>If your local branch already exists on the remote, run this command:
+git push Merge a Branch You’ll want to make sure your working tree is
+clean and see what branch you’re on. Run this command: git status First,
+you must check out the branch that you want to merge another branch into
+(changes will be merged into this branch). If you’re not already on the
+desired branch, run this command: git checkout master NOTE: Replace
+master with another branch name as needed. Now you can merge another
+branch into the current branch. Run this command: git merge
+my-branch-name NOTE: When you merge, there may be a conflict. Refer to
+Handling Merge Conflicts (the next exercise) to learn what to do. Delete
+Branches To delete a remote branch, run this command: git push origin
+–delete my-branch-name To delete a local branch, run either of these
+commands: git branch -d my-branch-name git branch -D my-branch-name
+NOTE: The -d option only deletes the branch if it has already been
+merged. The -D option is a shortcut for –delete –force, which deletes
+the branch irrespective of its merged status.</p>
 </div>
 </div>
 <div id="qnap-nas-login-with-ssh" class="section level1">
@@ -469,7 +560,7 @@ does not provide shell access.</p>
 <p>Workaround is to use same public key as your other servers.</p>
 <p>For example from ubuntu server copy authorized_keys file to home
 directory</p>
-<p>cp ~/.ssh/authorized_keys /home/gladiator/public.key</p>
+<p>cp ~/.ssh/authorized_keys /home/username/public.key</p>
 <p>Download with public.key file then import in NAS or another linux
 server. now copy it as authorized_key file in the new server.</p>
 <p>cp /path/to/public.key ~/.ssh/authorized_keys</p>
