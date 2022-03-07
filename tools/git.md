@@ -12,10 +12,10 @@ COMMAND | DESCRIPTION
 ## Use existing ssh keys
 
 If you have a copy of your ssh keys (e.g., on a USB stick) then simply copy the key files to the ~/.ssh/ directory.
+
 ```console
 foo@bar:~$ cp /path/to/my/key/id_rsa ~/.ssh/id_rsa`
 foo@bar:~$ cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub`
-<<<<<<< HEAD
 ## change permissions on file
 foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa`
 foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa.pub`
@@ -31,11 +31,10 @@ foo@bar:~$ ssh-add ~/.ssh/id_rsa`
 If you have a copy of your ssh keys (e.g., on a USB stick) then simply copy the key files to the ~/.ssh/ directory.
 
 Click from git GUI- Respository > git bash
+
 ```console
 cp '/path/to/Key/id_rsa' /c/Users/username/.ssh/
 cp '/path/to/Key/id_rsa.pub' /c/Users/username/.ssh/
-=======
->>>>>>> a0cc0cb8a3c71e2c19a86e581eaa215ded1854f9
 ## change permissions on file
 foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa`
 foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa.pub`
@@ -45,11 +44,11 @@ foo@bar:~$ eval $(ssh-agent -s)`
 foo@bar:~$ ssh-add ~/.ssh/id_rsa`
 ```
 
-<<<<<<< HEAD
+
 
 
 =======
->>>>>>> a0cc0cb8a3c71e2c19a86e581eaa215ded1854f9
+
 ## If it is first time you are setting up repository files initiate the repositoy and add origin
 ```console
 # first navigate to the the appropriate folder.
@@ -71,8 +70,6 @@ This can be done by creating a bash script placed preferably in home folder for 
 # if it is first time init the repositoy and add origin
 # git init
 # git remote add origin git@github.com:account/repo-name.git
-<<<<<<< HEAD
-
 # git remote set-url --add --push origin git@github.com:account/repo-name.git
 cd /volumes/rstudio/projects/repo-name
 git remote set-url origin git@github.com:account/repo-name.git
@@ -93,8 +90,8 @@ foo@bar:~$ ./gp-filename.sh
 ## Detached head
 
 If you have changed files you don't want to lose, you can push them. I have committed them in the detached mode and after that you can move to a temporary branch to integrate later in master.
-=======
 
+```console
 # git remote set-url --add --push origin git@github.com:account/repo-name.git
 cd /volumes/rstudio/projects/repo-name
 git remote set-url origin git@github.com:account/repo-name.git
@@ -111,7 +108,6 @@ git push -u origin main
 foo@bar:~$ chown +x gp-filename.sh
 foo@bar:~$ ./gp-filename.sh
 ```
->>>>>>> a0cc0cb8a3c71e2c19a86e581eaa215ded1854f9
 
 git commit -m "....."
 git branch temp

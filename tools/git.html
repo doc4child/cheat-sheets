@@ -254,6 +254,7 @@ if (window.hljs) {
 
 
 
+
 <style type="text/css">
 .main-container {
   max-width: 940px;
@@ -274,6 +275,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -410,6 +414,22 @@ foo@bar:~$ eval $(ssh-agent -s)`
 ## make ssh agent to actually use copied key
 foo@bar:~$ ssh-add ~/.ssh/id_rsa`</code></pre>
 </div>
+<div id="use-existing-ssh-keys-to-setup-git-on-windows" class="section level2">
+<h2>Use existing ssh keys to setup Git on Windows</h2>
+<p>If you have a copy of your ssh keys (e.g., on a USB stick) then
+simply copy the key files to the ~/.ssh/ directory.</p>
+<p>Click from git GUI- Respository &gt; git bash</p>
+<pre class="console"><code>cp &#39;/path/to/Key/id_rsa&#39; /c/Users/username/.ssh/
+cp &#39;/path/to/Key/id_rsa.pub&#39; /c/Users/username/.ssh/
+## change permissions on file
+foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa`
+foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa.pub`
+## start the ssh-agent in the background
+foo@bar:~$ eval $(ssh-agent -s)`
+## make ssh agent to actually use copied key
+foo@bar:~$ ssh-add ~/.ssh/id_rsa`</code></pre>
+<p>=======</p>
+</div>
 <div id="if-it-is-first-time-you-are-setting-up-repository-files-initiate-the-repositoy-and-add-origin" class="section level2">
 <h2>If it is first time you are setting up repository files initiate the
 repositoy and add origin</h2>
@@ -430,7 +450,6 @@ filename.sh</p>
 # if it is first time init the repositoy and add origin
 # git init
 # git remote add origin git@github.com:account/repo-name.git
-
 # git remote set-url --add --push origin git@github.com:account/repo-name.git
 cd /volumes/rstudio/projects/repo-name
 git remote set-url origin git@github.com:account/repo-name.git
@@ -445,6 +464,28 @@ git push -u origin main
 execute that code to push changes to git.</h2>
 <pre class="console"><code>foo@bar:~$ chown +x gp-filename.sh
 foo@bar:~$ ./gp-filename.sh</code></pre>
+</div>
+<div id="detached-head" class="section level2">
+<h2>Detached head</h2>
+<p>If you have changed files you don’t want to lose, you can push them.
+I have committed them in the detached mode and after that you can move
+to a temporary branch to integrate later in master.</p>
+<pre class="console"><code># git remote set-url --add --push origin git@github.com:account/repo-name.git
+cd /volumes/rstudio/projects/repo-name
+git remote set-url origin git@github.com:account/repo-name.git
+git add . &amp;&amp; \
+git add -u &amp;&amp; \
+git commit -m &quot;Updated: `date +&#39;%Y-%m-%d %H:%M:%S&#39;`&quot; &amp;&amp; \
+git push -u origin main
+</code></pre>
+</div>
+<div id="assign-executable-permission-to-that-file-then-file-can-be-run-to-execute-that-code-to-push-changes-to-git.-1" class="section level2">
+<h2>Assign executable permission to that file, then file can be run to
+execute that code to push changes to git.</h2>
+<pre class="console"><code>foo@bar:~$ chown +x gp-filename.sh
+foo@bar:~$ ./gp-filename.sh</code></pre>
+<p>git commit -m “…..” git branch temp git checkout master git merge
+temp</p>
 </div>
 <div id="using-github-with-ssh-secure-shell" class="section level2">
 <h2>Using GitHub with SSH (Secure Shell)</h2>
