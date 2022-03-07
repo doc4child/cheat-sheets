@@ -11,7 +11,7 @@
 
 
 
-<title>putty</title>
+<title>plex</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -365,13 +365,91 @@ pre code {
 </div>
 
 
-<div id="create-shortcut-to-login-with-the-private-key-on-windows." class="section level2">
-<h2>Create shortcut to login with the private key on windows.</h2>
-<p><code>&quot;C:\Program Files\PuTTY\putty.exe&quot; 10.10.10.10 -i C:\path\to\Keyfolder\PrivateKey.ppk</code></p>
-</div>
-<div id="set-up-passwordless-login" class="section level2">
-<h2>set up passwordless login</h2>
-<p><a href="https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login#" class="uri">https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login#</a>:~:text=To%20disable%20password%20authentication%2C%20edit,file%20on%20the%20remote%20server.&amp;text=Then%20find%20the%20ChallengeResponseAuthentication%20line,still%20use%20password%20to%20login.</p>
+<div id="plex" class="section level1">
+<h1>Plex</h1>
+<p><a href="https://www.reddit.com/r/PleX/comments/s0hcf3/plex_crashing_on_qnap_nas_with_qts_50_does_not/" class="uri">https://www.reddit.com/r/PleX/comments/s0hcf3/plex_crashing_on_qnap_nas_with_qts_50_does_not/</a></p>
+<p>This did not work</p>
+<p>Plex crashing on Qnap NAS with QTS 5.0 does not auto restart (How I
+addressed it) Help I created a script called PMS_cron.sh that runs every
+5 minutes that checks for the pid (process ID) and if it’s not found,
+restarts the service. There is also a command at the bottom that causes
+an alert to show in the QTS gui.</p>
+<pre class="console"><code>
+#!/bin/sh
+
+#############################################
+# Plex Media Server kill and restart script #
+#############################################
+
+# Location of QPKG conf file.
+CONF=/etc/config/qpkg.conf
+
+# Name of Plex Media Server install directory.
+QPKG_NAME=&quot;PlexMediaServer&quot;
+
+# Grab Plex Media Server install directory, regardless of disk layout.
+QPKG_DIR=$(getcfg -f $CONF $QPKG_NAME Install_path)
+
+# Grab Plex Media Server script
+QPKG_SHELL=$(getcfg -f $CONF $QPKG_NAME Shell)
+
+# PID file
+PID_FILE=&quot;${QPKG_DIR}/Library/Plex Media Server/plexmediaserver.pid&quot;
+
+# PID number
+PID_NUMBER=$(cat &quot;$PID_FILE&quot;)
+
+# Is PMS enabled in QTS App Center?
+ENABLED=$(/sbin/getcfg $QPKG_NAME Enable -u -d FALSE -f $CONF)
+if [ &quot;$ENABLED&quot; != &quot;TRUE&quot; ]
+  then
+    echo -e &quot;$(date)\t$QPKG_NAME is disabled.&quot;
+    exit 1
+  else
+    echo -e &quot;$(date)\t$QPKG_NAME is enabled.&quot;
+#    exit 1
+fi
+
+# Test if the process ID exists
+if [ -d /proc/$PID_NUMBER ];
+    then
+#        echo
+#        echo $PID_NUMBER
+
+        echo -e &quot;$(date)\tPlex Media Server process ID $PID_NUMBER exists... exiting&quot;
+        exit 0
+    else
+        echo -e &quot;$(date)\tPlex Media Server process ID does not exist, restarting it&quot;
+        # Kill all the PIDs
+
+        echo -e &quot;$(date)\tKilling all of the PIDs&quot;
+        for pms in $(ps faux | grep -i plex | grep -v grep | awk &#39;{print $2 }&#39;)
+            do
+                echo -e &quot;$(date)\tKilling PID $pms&quot;
+                kill -9 $pms
+            done
+        echo -e &quot;$(date)\tA PIDs are killed!!!&quot;
+
+        echo -e &quot;$(date)\tStopping our awesome Plex Media Server&quot;
+        $QPKG_SHELL stop
+
+        echo -e &quot;$(date)\tRestarting our awesome Plex Media Server&quot;
+        $QPKG_SHELL restart
+
+        # Send a notification to Qnap GUI
+        notice_log_tool -a &quot;Plex Server restarted by cron&quot; -t 7
+fi
+
+exit 0
+</code></pre>
+<p>I then added this crontab entry using</p>
+<p><code>sudo vim /etc/config/crontab</code> ` that runs the above
+script every 5 minutes, and logs the output to a file called
+PMS_cron_output.txt. I may eventually just remove the logging output,
+but for now is good for at least the initial time I’m monitoring it.</p>
+<p><code>*/5 * * * * /share/homes/admin/PMS_cron.sh &gt;&gt; /share/homes/admin/PMS_cron_output.txt</code></p>
+<p>I’ve read that there is a possibility that the crontab entry may not
+persist through a reboot, but I’ve not tested that part…yet.</p>
 </div>
 
 

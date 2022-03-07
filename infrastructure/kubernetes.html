@@ -11,7 +11,7 @@
 
 
 
-<title>putty</title>
+<title>kubernetes</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -365,13 +365,256 @@ pre code {
 </div>
 
 
-<div id="create-shortcut-to-login-with-the-private-key-on-windows." class="section level2">
-<h2>Create shortcut to login with the private key on windows.</h2>
-<p><code>&quot;C:\Program Files\PuTTY\putty.exe&quot; 10.10.10.10 -i C:\path\to\Keyfolder\PrivateKey.ppk</code></p>
+<div id="kubernetes-cheat-sheet" class="section level1">
+<h1>Kubernetes Cheat-Sheet</h1>
+<div id="microk8s" class="section level2">
+<h2>microk8s</h2>
+<p><a href="https://microk8s.io/docs/getting-started" class="uri">https://microk8s.io/docs/getting-started</a></p>
+<p>Install microk8s during ubuntu server install or
+<code>sudo snap install microk8s --classic --channel=1.21</code></p>
+<p>sudo usermod -a -G microk8s $USER</p>
+<p>sudo chown -f -R $USER ~/.kube</p>
+<p>Restart group for changes to take effect.</p>
+<p>su - $USER</p>
+<p>Create alias</p>
+<p>alias kubectl=‘microk8s kubectl’</p>
+<p>install cert-manager <a href="https://cert-manager.io/docs/installation/" class="uri">https://cert-manager.io/docs/installation/</a></p>
+<p>Prerec</p>
+<p>Following addons needed per <a href="https://stackoverflow.com/questions/64393873/connection-refused-when-using-cert-manager-to-get-a-letsencrypt-certificate-for" class="uri">https://stackoverflow.com/questions/64393873/connection-refused-when-using-cert-manager-to-get-a-letsencrypt-certificate-for</a>
+microk8s enable dns ingress</p>
+<p>microk8s enable dns ingress dashboard storage helm</p>
+<p>Check latest version for installation</p>
+<p>kubectl apply -f <a href="https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml" class="uri">https://github.com/cert-manager/cert-manager/releases/download/v1.7.1/cert-manager.yaml</a></p>
+<p>check pods</p>
+<p>kubectl -n cert-manager get pods</p>
+<p>Create files microk8s-staging-issuer.yaml and
+microk8s-prod-issuer.yaml</p>
+<p>microk8s-staging-issuer.yaml</p>
+<pre class="colsole"><code>   apiVersion: cert-manager.io/v1
+   kind: ClusterIssuer
+   metadata:
+     name: letsencrypt-staging
+   spec:
+     acme:
+       # The ACME server URL
+       server: https://acme-staging-v02.api.letsencrypt.org/directory
+       # Email address used for ACME registration
+       email: doc4child@gmail.com
+       # Name of a secret used to store the ACME account private key
+       privateKeySecretRef:
+         name: letsencrypt-staging
+       # Enable the HTTP-01 challenge provider
+       solvers:
+       - http01:
+           ingress:
+             class:  public
+
+</code></pre>
+<p>microk8s-prod-issuer.yaml</p>
+<pre class="console"><code>   apiVersion: cert-manager.io/v1
+   kind: ClusterIssuer
+   metadata:
+     name: letsencrypt-prod
+   spec:
+     acme:
+       # The ACME server URL
+       server: https://acme-v02.api.letsencrypt.org/directory
+       # Email address used for ACME registration
+       email: doc4child@gmail.com
+       # Name of a secret used to store the ACME account private key
+       privateKeySecretRef:
+         name: letsencrypt-prod
+       # Enable the HTTP-01 challenge provider
+       solvers:
+       - http01:
+           ingress:
+             class: public</code></pre>
+<p>kubectl apply -f microk8s-staging-issuer.yaml -f
+microk8s-prod-issuer.yaml</p>
+<p>kubectl describe clusterissuer <ClusterIssuer name></p>
 </div>
-<div id="set-up-passwordless-login" class="section level2">
-<h2>set up passwordless login</h2>
-<p><a href="https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login#" class="uri">https://www.linuxbabe.com/linux-server/setup-passwordless-ssh-login#</a>:~:text=To%20disable%20password%20authentication%2C%20edit,file%20on%20the%20remote%20server.&amp;text=Then%20find%20the%20ChallengeResponseAuthentication%20line,still%20use%20password%20to%20login.</p>
+<div id="install-helm" class="section level2">
+<h2>install helm</h2>
+<p>sudo snap install helm –classic</p>
+</div>
+<div id="networking" class="section level2">
+<h2>Networking</h2>
+<p>Connect containers using Kubernetes internal DNS system:
+<code>&lt;service-name&gt;.&lt;namespace&gt;.svc.cluster.local</code></p>
+<p>Troubleshoot Networking with a netshoot toolkit Container:
+<code>kubectl run tmp-shell --rm -i --tty --image nicolaka/netshoot -- /bin/bash</code></p>
+</div>
+<div id="containers" class="section level2">
+<h2>Containers</h2>
+<p>Restart Deployments (Stops and Restarts all Pods):
+<code>kubectl scale deploy &lt;deployment&gt; --replicas=0</code>
+<code>kubectl scale deploy &lt;deployment&gt; --replicas=1</code></p>
+<p>Executing Commands on Pods:
+<code>kubectl exec -it &lt;PODNAME&gt; -- &lt;COMMAND&gt;</code>
+<code>kubectl exec -it generic-pod -- /bin/bash</code></p>
+</div>
+<div id="config-and-cluster-management" class="section level2">
+<h2>Config and Cluster Management</h2>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>COMMAND</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>kubectl cluster-info</code></td>
+<td>Display endpoint information about the master and services in the
+cluster</td>
+</tr>
+<tr class="even">
+<td><code>kubectl config view</code></td>
+<td>Get the configuration of the cluster</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="resource-management" class="section level2">
+<h2>Resource Management</h2>
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>COMMAND</th>
+<th>DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>kubectl get all --all-namespaces</code></td>
+<td>List all resources in the entire Cluster</td>
+</tr>
+<tr class="even">
+<td><code>kubectl delete &lt;RESOURCE&gt; &lt;RESOURCENAME&gt; --grace-period=0 --force</code></td>
+<td>Try to force the deletion of the resource</td>
+</tr>
+</tbody>
+</table>
+<div id="list-of-kubectl-short-names" class="section level3">
+<h3>List of kubectl Short Names</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Short Name</th>
+<th>Long Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>csr</code></td>
+<td><code>certificatesigningrequests</code></td>
+</tr>
+<tr class="even">
+<td><code>cs</code></td>
+<td><code>componentstatuses</code></td>
+</tr>
+<tr class="odd">
+<td><code>cm</code></td>
+<td><code>configmaps</code></td>
+</tr>
+<tr class="even">
+<td><code>ds</code></td>
+<td><code>daemonsets</code></td>
+</tr>
+<tr class="odd">
+<td><code>deploy</code></td>
+<td><code>deployments</code></td>
+</tr>
+<tr class="even">
+<td><code>ep</code></td>
+<td><code>endpoints</code></td>
+</tr>
+<tr class="odd">
+<td><code>ev</code></td>
+<td><code>events</code></td>
+</tr>
+<tr class="even">
+<td><code>hpa</code></td>
+<td><code>horizontalpodautoscalers</code></td>
+</tr>
+<tr class="odd">
+<td><code>ing</code></td>
+<td><code>ingresses</code></td>
+</tr>
+<tr class="even">
+<td><code>limits</code></td>
+<td><code>limitranges</code></td>
+</tr>
+<tr class="odd">
+<td><code>ns</code></td>
+<td><code>namespaces</code></td>
+</tr>
+<tr class="even">
+<td><code>no</code></td>
+<td><code>nodes</code></td>
+</tr>
+<tr class="odd">
+<td><code>pvc</code></td>
+<td><code>persistentvolumeclaims</code></td>
+</tr>
+<tr class="even">
+<td><code>pv</code></td>
+<td><code>persistentvolumes</code></td>
+</tr>
+<tr class="odd">
+<td><code>po</code></td>
+<td><code>pods</code></td>
+</tr>
+<tr class="even">
+<td><code>pdb</code></td>
+<td><code>poddisruptionbudgets</code></td>
+</tr>
+<tr class="odd">
+<td><code>psp</code></td>
+<td><code>podsecuritypolicies</code></td>
+</tr>
+<tr class="even">
+<td><code>rs</code></td>
+<td><code>replicasets</code></td>
+</tr>
+<tr class="odd">
+<td><code>rc</code></td>
+<td><code>replicationcontrollers</code></td>
+</tr>
+<tr class="even">
+<td><code>quota</code></td>
+<td><code>resourcequotas</code></td>
+</tr>
+<tr class="odd">
+<td><code>sa</code></td>
+<td><code>serviceaccounts</code></td>
+</tr>
+<tr class="even">
+<td><code>svc</code></td>
+<td><code>services</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="logs-and-troubleshooting" class="section level2">
+<h2>Logs and Troubleshooting</h2>
+<div id="logs" class="section level3">
+<h3>Logs</h3>
+</div>
+<div id="mysql" class="section level3">
+<h3>MySQL</h3>
+<p><code>kubectl run -it --rm --image=mysql:5.7 --restart=Never mysql-client -- mysql -u USERNAME -h HOSTNAME -p</code></p>
+</div>
+</div>
 </div>
 
 

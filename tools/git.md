@@ -24,6 +24,26 @@ foo@bar:~$ eval $(ssh-agent -s)`
 foo@bar:~$ ssh-add ~/.ssh/id_rsa`
 ```
 
+
+## Use existing ssh keys to setup Git on Windows
+
+If you have a copy of your ssh keys (e.g., on a USB stick) then simply copy the key files to the ~/.ssh/ directory.
+
+Click from git GUI- Respository > git bash
+```console
+cp '/path/to/Key/id_rsa' /c/Users/username/.ssh/
+cp '/path/to/Key/id_rsa.pub' /c/Users/username/.ssh/
+## change permissions on file
+foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa`
+foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa.pub`
+## start the ssh-agent in the background
+foo@bar:~$ eval $(ssh-agent -s)`
+## make ssh agent to actually use copied key
+foo@bar:~$ ssh-add ~/.ssh/id_rsa`
+```
+
+
+
 ## If it is first time you are setting up repository files initiate the repositoy and add origin
 ```console
 # first navigate to the the appropriate folder.
@@ -63,6 +83,14 @@ foo@bar:~$ chown +x gp-filename.sh
 foo@bar:~$ ./gp-filename.sh
 ```
 
+## Detached head
+
+If you have changed files you don't want to lose, you can push them. I have committed them in the detached mode and after that you can move to a temporary branch to integrate later in master.
+
+git commit -m "....."
+git branch temp
+git checkout master
+git merge temp
 
 
 ## Using GitHub with SSH (Secure Shell)
