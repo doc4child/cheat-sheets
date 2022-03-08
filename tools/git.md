@@ -40,7 +40,7 @@ $ ssh-add ~/.ssh/id_rsa`
 
 # If you are not logged in and want to copy file from current computer to remote computer use following command.
 
-$ sssh-copy-id username@10.10.10.10
+$ ssh-copy-id username@10.10.10.10
 
 OR
 
