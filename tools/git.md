@@ -34,11 +34,18 @@ $ eval $(ssh-agent -s)`
 $ ssh-add ~/.ssh/id_rsa`
 ```
 
-## Linux: Use existing public key from Github.
+## Linux: Install existing public key from current computer or Github.
 
 ```{bash}
-# import keys from github, this can be used when you already have privatekey, public key and ppk key setup for github (coverted on WinSCP-since WinSCP does not accept OpenSSH keys)
-ssh-import-id-gh <username>
+
+# If you are not logged in and want to copy file from current computer to remote computer use following command.
+
+$ ssh username@10.10.10.10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
+
+# if you are already logged in and want to import public keys from github, use following command.
+# use this when you already have privatekey, public key and ppk key setup for github (coverted on WinSCP-since WinSCP does not accept OpenSSH keys)
+
+$ ssh-import-id-gh <username>
 ```
 
 ## Windows: Use existing ssh keys to setup Git
@@ -49,8 +56,8 @@ copy the key files to the \~/.ssh/ directory.
 Click from git GUI- Repository \> git bash
 
 ```{bash}
-cp '/path/to/Key/id_rsa' /c/Users/username/.ssh/
-cp '/path/to/Key/id_rsa.pub' /c/Users/username/.ssh/
+$ cp '/path/to/Key/id_rsa' /c/Users/username/.ssh/
+$ cp '/path/to/Key/id_rsa.pub' /c/Users/username/.ssh/
 ## change permissions on file
 $ sudo chmod 600 ~/.ssh/id_rsa`
 $ sudo chmod 600 ~/.ssh/id_rsa.pub`
