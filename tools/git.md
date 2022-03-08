@@ -34,7 +34,7 @@ $ eval $(ssh-agent -s)`
 $ ssh-add ~/.ssh/id_rsa`
 ```
 
-## Linux: Install existing public key from current computer or Github.
+## Linux: Install existing public key from current computer or Github to remote server
 
 ```{bash}
 
@@ -118,6 +118,7 @@ Assign executable permission to that file, then file can be run to
 execute that code to push changes to git.
 
 ```{bash}
+# gp for git-push (name could be anything, but this convention will keep these files together)
 $ chown +x gp-filename.sh
 $ ./gp-filename.sh
 ```
