@@ -371,8 +371,8 @@ pre code {
 <h2>Basic commands</h2>
 <table>
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="61%" />
+<col width="38%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -400,95 +400,91 @@ pre code {
 </tbody>
 </table>
 </div>
-<div id="use-existing-ssh-keys" class="section level2">
-<h2>Use existing ssh keys</h2>
+<div id="linux-use-existing-ssh-keys" class="section level2">
+<h2>Linux: Use existing ssh keys</h2>
 <p>If you have a copy of your ssh keys (e.g., on a USB stick) then
 simply copy the key files to the ~/.ssh/ directory.</p>
-<pre class="console"><code>foo@bar:~$ cp /path/to/my/key/id_rsa ~/.ssh/id_rsa`
-foo@bar:~$ cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub`
+<pre class="{bash}"><code>$ cp /path/to/my/key/id_rsa ~/.ssh/id_rsa`
+$ cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub`
 ## change permissions on file
-foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa`
-foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa.pub`
+$ sudo chmod 600 ~/.ssh/id_rsa`
+$ sudo chmod 600 ~/.ssh/id_rsa.pub`
 ## start the ssh-agent in the background
-foo@bar:~$ eval $(ssh-agent -s)`
+$ eval $(ssh-agent -s)`
 ## make ssh agent to actually use copied key
-foo@bar:~$ ssh-add ~/.ssh/id_rsa`</code></pre>
+$ ssh-add ~/.ssh/id_rsa`</code></pre>
 </div>
-<div id="use-existing-ssh-keys-to-setup-git-on-windows" class="section level2">
-<h2>Use existing ssh keys to setup Git on Windows</h2>
+<div id="windows-use-existing-ssh-keys-to-setup-git" class="section level2">
+<h2>Windows: Use existing ssh keys to setup Git</h2>
 <p>If you have a copy of your ssh keys (e.g., on a USB stick) then
 simply copy the key files to the ~/.ssh/ directory.</p>
-<p>Click from git GUI- Respository &gt; git bash</p>
-<pre class="console"><code>cp &#39;/path/to/Key/id_rsa&#39; /c/Users/username/.ssh/
+<p>Click from git GUI- Repository &gt; git bash</p>
+<pre class="{bash}"><code>cp &#39;/path/to/Key/id_rsa&#39; /c/Users/username/.ssh/
 cp &#39;/path/to/Key/id_rsa.pub&#39; /c/Users/username/.ssh/
 ## change permissions on file
-foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa`
-foo@bar:~$ sudo chmod 600 ~/.ssh/id_rsa.pub`
+$ sudo chmod 600 ~/.ssh/id_rsa`
+$ sudo chmod 600 ~/.ssh/id_rsa.pub`
 ## start the ssh-agent in the background
-foo@bar:~$ eval $(ssh-agent -s)`
+$ eval $(ssh-agent -s)`
 ## make ssh agent to actually use copied key
-foo@bar:~$ ssh-add ~/.ssh/id_rsa`</code></pre>
+$ ssh-add ~/.ssh/id_rsa`
+</code></pre>
 <p>=======</p>
 </div>
-<div id="if-it-is-first-time-you-are-setting-up-repository-files-initiate-the-repositoy-and-add-origin" class="section level2">
-<h2>If it is first time you are setting up repository files initiate the
-repositoy and add origin</h2>
-<pre class="console"><code># first navigate to the the appropriate folder.
-foo@bar:~$ git init
-foo@bar:~$ git remote add origin git@github.com:account/repo-name.git
-`git remote set-url origin git://new.url.here` | this is how you set remote url -Instead of removing and re-adding, you can do this note that it is git (SSH) address, not https address. Use this after setting up ssh keys for authentication.
+<div id="initiate-repository" class="section level2">
+<h2>Initiate Repository</h2>
+<p>If it is the first time you are setting up repository files initiate
+the repository and add origin</p>
+<pre class="{bash}"><code># first navigate to the the appropriate folder.
+$ git init
+$ git remote add origin git@github.com:account/repo-name.git
+`git remote set-url origin git://new.url.here` 
 
-Note:--Fillowing command can remove origin
-foo@bar:~$ git remote remove origin` | to remove remote </code></pre>
+# this is how you set remote url -Instead of removing and re-adding, you can do this note that it is git (SSH) address, not https address. Use this after setting up ssh keys for authentication.
+
+Note:--Following command can remove origin
+$ git remote remove origin` | to remove remote 
+</code></pre>
 </div>
 <div id="automating-push-changes" class="section level2">
 <h2>Automating push changes</h2>
 <p>This can be done by creating a bash script placed preferably in home
 folder for easy access. Use following template and save as
 filename.sh</p>
-<pre class="console"><code>#!/bin/bash
+<pre class="{bash}"><code>#!/bin/bash
 # if it is first time init the repositoy and add origin
 # git init
 # git remote add origin git@github.com:account/repo-name.git
 # git remote set-url --add --push origin git@github.com:account/repo-name.git
 cd /volumes/rstudio/projects/repo-name
-git remote set-url origin git@github.com:account/repo-name.git
-git add . &amp;&amp; \
-git add -u &amp;&amp; \
-git commit -m &quot;Updated: `date +&#39;%Y-%m-%d %H:%M:%S&#39;`&quot; &amp;&amp; \
-git push -u origin main
+$ git remote set-url origin git@github.com:account/repo-name.git
+$ git add . &amp;&amp; \
+$ git add -u &amp;&amp; \
+$ git commit -m &quot;Updated: `date +&#39;%Y-%m-%d %H:%M:%S&#39;`&quot; &amp;&amp; \
+$ git push -u origin main
 </code></pre>
 </div>
-<div id="assign-executable-permission-to-that-file-then-file-can-be-run-to-execute-that-code-to-push-changes-to-git." class="section level2">
-<h2>Assign executable permission to that file, then file can be run to
-execute that code to push changes to git.</h2>
-<pre class="console"><code>foo@bar:~$ chown +x gp-filename.sh
-foo@bar:~$ ./gp-filename.sh</code></pre>
+<div id="run-file" class="section level2">
+<h2>Run file</h2>
+<p>Assign executable permission to that file, then file can be run to
+execute that code to push changes to git.</p>
+<pre class="{bash}"><code>$ chown +x gp-filename.sh
+$ ./gp-filename.sh</code></pre>
 </div>
 <div id="detached-head" class="section level2">
 <h2>Detached head</h2>
 <p>If you have changed files you don’t want to lose, you can push them.
 I have committed them in the detached mode and after that you can move
 to a temporary branch to integrate later in master.</p>
-<pre class="console"><code># git remote set-url --add --push origin git@github.com:account/repo-name.git
-cd /volumes/rstudio/projects/repo-name
-git remote set-url origin git@github.com:account/repo-name.git
-git add . &amp;&amp; \
-git add -u &amp;&amp; \
-git commit -m &quot;Updated: `date +&#39;%Y-%m-%d %H:%M:%S&#39;`&quot; &amp;&amp; \
-git push -u origin main
+<pre class="{bash}"><code>$ git commit -m &quot;.....&quot;
+$ git branch temp
+$ git checkout master
+$ git merge temp
 </code></pre>
-</div>
-<div id="assign-executable-permission-to-that-file-then-file-can-be-run-to-execute-that-code-to-push-changes-to-git.-1" class="section level2">
-<h2>Assign executable permission to that file, then file can be run to
-execute that code to push changes to git.</h2>
-<pre class="console"><code>foo@bar:~$ chown +x gp-filename.sh
-foo@bar:~$ ./gp-filename.sh</code></pre>
-<p>git commit -m “…..” git branch temp git checkout master git merge
-temp</p>
 </div>
 <div id="using-github-with-ssh-secure-shell" class="section level2">
 <h2>Using GitHub with SSH (Secure Shell)</h2>
+<p>Follow this if you are creating SSH key for the first time.</p>
 <p><a href="https://www.geeksforgeeks.org/using-github-with-ssh-secure-shell/" class="uri">https://www.geeksforgeeks.org/using-github-with-ssh-secure-shell/</a></p>
 <p>Last Updated : 21 Apr, 2020 Secure Shell (SSH) Protocol facilitates
 the communication among systems in an unsecured network by providing a
@@ -501,44 +497,45 @@ within both the local and remote systems.</p>
 <p>Connect to GitHub using SSH Note: If you already have an existing SSH
 key, you can skip step 1 and go to step 2. You can verify the same by
 listing all the existing keys using the command:</p>
-<p><code>$ ls -al ~/.ssh</code></p>
+<pre class="{bash}"><code>$ ls -al ~/.ssh</code></pre>
 <p>Steps to connect GitHub to SSH :</p>
 <div id="step-1-generate-ssh-key-on-local-system" class="section level4">
 <h4>Step 1: Generate SSH Key on Local System</h4>
 <p>Launch Terminal / Git Bash. Paste the below command and substitute
 your GitHub email address:</p>
-<p><code>$ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code></p>
+<pre class="{bash}"><code>$ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</code></pre>
 <p>Press Enter when prompted “Enter a file in which to save the key”.
 Type a passphrase of your choice. Verify creation of SSH Key:</p>
-<p><code>$ ls -al ~/.ssh</code></p>
+<pre class="{bash}"><code>$ ls -al ~/.ssh</code></pre>
 </div>
 <div id="step-2-add-ssh-key-to-ssh-agent" class="section level4">
 <h4>Step 2: Add SSH Key to SSH Agent</h4>
 <p>Initiate ssh-agent:</p>
-<p><code>$ eval &quot;$(ssh-agent -s)&quot;</code></p>
+<pre class="{bash}"><code>$ eval &quot;$(ssh-agent -s)&quot;</code></pre>
 <p>If your key is generated with a different name, replace id_rsa in the
 command below:</p>
-<p><code>$ ssh-add ~/.ssh/id_rsa</code></p>
+<pre class="{bash}"><code>$ ssh-add ~/.ssh/id_rsa</code></pre>
 </div>
 <div id="step-3-add-the-ssh-key-to-your-github-account" class="section level4">
 <h4>Step 3: Add the SSH Key to your GitHub Account</h4>
 <p>Copy key to the clipboard: WINDOWS</p>
-<p><code>$ clip &lt; ~/.ssh/id_rsa.pub</code></p>
+<pre class="{bash}"><code>$ clip &lt; ~/.ssh/id_rsa.pub</code></pre>
 <p>LINUX</p>
-<p><code>cat ~/.ssh/id_rsa.pub</code></p>
+<pre class="{bash}"><code>$ cat ~/.ssh/id_rsa.pub</code></pre>
 <p>OR</p>
-<p><code>$ sudo apt-get install xclip</code></p>
-<p><code>$ xclip -sel clip &lt; ~/.ssh/id_rsa.pub</code></p>
+<pre class="{bash}"><code>$ sudo apt-get install xclip
+
+$ xclip -sel clip &lt; ~/.ssh/id_rsa.pub</code></pre>
 <p>MAC</p>
-<p><code>$pbcopy &lt; ~/.ssh/id_rsa.pub</code></p>
+<pre class="{bash}"><code>$ pbcopy &lt; ~/.ssh/id_rsa.pub</code></pre>
 <p>Open the GitHub website and log in to your account. Go to the
 settings page from the menu in top right corner. Select “SSH and GPG
 keys” from the sidebar and click on “New SSH key” option.</p>
 <p>Add relevant title in the “Title” field and paste the SSH key in the
-“Key field“. Now, click on “Add SSH key“. Step 4: Test the SSH
+“Key field”. Now, click on “Add SSH key”. Step 4: Test the SSH
 Connection</p>
 <p>Launch Terminal / Git Bash. Type:</p>
-<p><code>$ssh -T git@github.com</code></p>
+<pre class="{bash}"><code>$ ssh -T git@github.com</code></pre>
 <p>Connection is established if you are prompted with the following
 message: Hi {username}! You’ve successfully authenticated, but GitHub
 does not provide shell access.</p>
@@ -595,16 +592,15 @@ NOTE: The -d option only deletes the branch if it has already been
 merged. The -D option is a shortcut for –delete –force, which deletes
 the branch irrespective of its merged status.</p>
 </div>
-</div>
-<div id="qnap-nas-login-with-ssh" class="section level1">
-<h1>QNAP NAS login with SSH</h1>
+<div id="qnap-nas-login-with-ssh" class="section level2">
+<h2>QNAP NAS login with SSH</h2>
 <p>Workaround is to use same public key as your other servers.</p>
 <p>For example from ubuntu server copy authorized_keys file to home
 directory</p>
-<p>cp ~/.ssh/authorized_keys /home/username/public.key</p>
+<pre class="{bash}"><code>$ cp ~/.ssh/authorized_keys /home/username/public.key</code></pre>
 <p>Download with public.key file then import in NAS or another linux
 server. now copy it as authorized_key file in the new server.</p>
-<p>cp /path/to/public.key ~/.ssh/authorized_keys</p>
+<pre class="{bash}"><code>$ cp /path/to/public.key ~/.ssh/authorized_keys</code></pre>
 <p>view file to make sure it copied correctly. cat
 ~/.ssh/authorized_keys</p>
 <p>Now you can use same private key for authentication to different
@@ -644,9 +640,8 @@ referred to as the “Client”).</p>
 and generate the public / private key pair. In terminal type the
 following at the command prompt:</li>
 </ol>
-</div>
-<div id="ssh-keygen--t-rsa--c-server-comment-field" class="section level1">
-<h1>ssh-keygen -t rsa -C “server comment field”</h1>
+<pre class="{bash}"><code>$ ssh-keygen -t rsa -C &quot;server comment field&quot;
+</code></pre>
 <p>Note: the -C switch is not required. It allows you to insert a
 comment that will appear in the authorized_keys file. It is helpful for
 identifying and managing keys within the authorized_keys file on the
@@ -656,25 +651,17 @@ that you can easily identify where and why a given key was created.</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Execute the command and you should see the following output:</li>
 </ol>
-</div>
-<div id="generating-publicprivate-rsa-key-pair." class="section level1">
-<h1>Generating public/private rsa key pair.</h1>
-</div>
-<div id="enter-file-in-which-to-save-the-key-usersusername.sshid_rsa" class="section level1">
-<h1>Enter file in which to save the key
-(/Users/UserName/.ssh/id_rsa):</h1>
+<p>Generating public/private rsa key pair.</p>
+<p>Enter file in which to save the key
+(/Users/UserName/.ssh/id_rsa):</p>
 <p>Note: “UserName” is the user account that you have logged into via
 SSH. Also note that the actual suggested path may vary slightly
 depending your system. You should accept the suggested location unless
 you have reason to do otherwise.</p>
 <p>You will then be prompted for a passphrase that will be associated
 with this key.</p>
-</div>
-<div id="enter-passphrase-empty-for-no-passphrase" class="section level1">
-<h1>Enter passphrase (empty for no passphrase):</h1>
-</div>
-<div id="enter-same-passphrase-again" class="section level1">
-<h1>Enter same passphrase again:</h1>
+<p>Enter passphrase (empty for no passphrase):</p>
+<p>Enter same passphrase again:</p>
 <p>The passphrase can be thought of as a password for the private key -
 it serves as an extra layer of protection as described below. If you
 leave this field blank you will generate keys that do not prompt for a
@@ -702,16 +689,12 @@ created keys – cd /User/UserName/.ssh and use the “ls” list comand to
 see what is in that directory. You should see the following files:</p>
 <p>id_rsa id_rsa.pub known_hosts. Type the following at the command
 prompt:</p>
-</div>
-<div id="scp-id_rsa.pub-adminclientipaddress-etcconfigssh" class="section level1">
-<h1>scp id_rsa.pub <a href="mailto:admin@ClientIPAddress" class="email">admin@ClientIPAddress</a> /etc/config/ssh/</h1>
+<pre class="{bash}"><code>$ scp id_rsa.pub admin@ClientIPAddress /etc/config/ssh/</code></pre>
 <p><a href="mailto:admin@ClientIPAddress" class="email">admin@ClientIPAddress</a> is the address of your QNAP NAS
 (the Client) followed by the path on the Client where the public key
 needs to reside. You will be ask you for the password of the “admin”
 account to login to the Client.</p>
-</div>
-<div id="password" class="section level1">
-<h1>password:</h1>
+<p>password:</p>
 <p>Enter the password to complete secure copy.</p>
 <ol start="4" style="list-style-type: decimal">
 <li><p>On the Client (QNAP NAS) navigate to the /etc/config/ssh folder
@@ -722,9 +705,7 @@ needs to reside in this directory. Do not worry if authorized_keys file
 is not present. We will create it.</p></li>
 </ol>
 <p>Type the following at the command prompt:</p>
-</div>
-<div id="cat-id_rsa.pub-authorized_keys" class="section level1">
-<h1>cat id_rsa.pub &gt;&gt; authorized_keys</h1>
+<pre class="{bash}"><code>$ cat id_rsa.pub &gt;&gt; authorized_keys</code></pre>
 <p>Note: You have to cut the key in the file to one line, and add
 ssh-rsa in at the very beginning.</p>
 <p>Example</p>
@@ -734,8 +715,10 @@ Set correct permissions</p>
 <p>SSH daemon is really peacky about permissions. Create a .ssh folder
 within your home folder, copy /etc/config/ssh/authorized_keys to this
 folder and then make sure you have set your permissions as follows:</p>
-<p>chmod 0711 ~ chmod 0700 ~/.ssh chmod 0600 ~/.ssh/authorized_keys
-That’s it. You should now be able to login using key authentication.
+<pre class="{bash}"><code>$ chmod 0711 ~ 
+$ chmod 0700 ~/.ssh 
+$ chmod 0600 ~/.ssh/authorized_keys </code></pre>
+<p>That’s it. You should now be able to login using key authentication.
 Logout of the Client and attempt to login. If you created a passphrase
 for your id_rsa private key then you will be prompted for the
 passphrase. If you left the passphrase field blank when generating the
@@ -750,11 +733,9 @@ will not be prompted again unless you remove this file.</p>
 <p>Important If the destination Client is a x86 series model, please
 execute the following command on the destination Client (TS-509) to make
 sure the folder permission has been set correctly. Because there might
-be a permission problem in earlier firmware versions in x86 model
-(e.g. TS-509)</p>
-</div>
-<div id="chown-admin.administrators-mnthda_root.config" class="section level1">
-<h1>chown admin.administrators /mnt/HDA_ROOT/.config</h1>
+be a permission problem in earlier firmware versions in x86 model (e.g.
+TS-509)</p>
+<pre class="{bash}"><code>$ chown admin.administrators /mnt/HDA_ROOT/.config</code></pre>
 <p>Note The procedure is the same when setting up key authentication
 between two NAS boxes. Simply follow the steps above substituting a NAS
 device for the Host and Client as per the above example.</p>
@@ -790,9 +771,7 @@ it possible to SSH login to TS-509 from TS-209 without password.</p>
 <li><p>Execute the following command, secure copy the id_rsa.pub from
 TS-209 to TS-509, and save it as “authorized_keys”.</p></li>
 </ol>
-</div>
-<div id="scp-.sshid_rsa.pub-.sshauthorized_keys" class="section level1">
-<h1>scp ~/.ssh/id_rsa.pub .ssh/authorized_keys</h1>
+<pre class="{bash}"><code>$ scp ~/.ssh/id_rsa.pub .ssh/authorized_keys</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>You might see a promoted message like below if this is the first
 time you are trying to access one NAS from another. Simply type “yes”
@@ -804,9 +783,7 @@ XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX:XX. Are you sure you want
 to continue connecting (yes/no) ? 4. And it will ask you for the
 password of the “admin” account to login the destination host
 (10.8.12.33), just enter it and finish the secure copy command.</p>
-</div>
-<div id="password-1" class="section level1">
-<h1>password:</h1>
+<p>$ password:</p>
 <ol start="5" style="list-style-type: decimal">
 <li>That’s it! Now you should be able to SSH login to the TS-509 from
 TS-209 without password, the authorized_keys has been saved in the
@@ -815,11 +792,10 @@ destination host (TS-509) under /etc/config/ssh/authorized_keys</li>
 <p>Note If the destination host is a x86 series model, please execute
 the following command in the destination host (TS-509) to make sure the
 folder permission has been set correctly. Because there might be a
-permission problem in earlier firmware versions in x86 model
-(e.g. TS-509)</p>
+permission problem in earlier firmware versions in x86 model (e.g.
+TS-509)</p>
+<pre class="{bash}"><code>$ chown admin.administrators /mnt/HDA_ROOT/.config</code></pre>
 </div>
-<div id="chown-admin.administrators-mnthda_root.config-1" class="section level1">
-<h1>chown admin.administrators /mnt/HDA_ROOT/.config</h1>
 </div>
 
 
