@@ -40,6 +40,10 @@ $ ssh-add ~/.ssh/id_rsa`
 
 # If you are not logged in and want to copy file from current computer to remote computer use following command.
 
+$ sssh-copy-id username@10.10.10.10
+
+OR
+
 $ ssh username@10.10.10.10 "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys"
 
 # if you are already logged in and want to import public keys from github, use following command.
