@@ -21,6 +21,8 @@ If you have a copy of your ssh keys (e.g., on a USB stick) then simply
 copy the key files to the \~/.ssh/ directory.
 
 ```{bash}
+# When you are loggged in as a perticular user ~/ refers to /home/username
+
 $ cp /path/to/my/key/id_rsa ~/.ssh/id_rsa`
 $ cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub`
 ## change permissions on file
@@ -30,6 +32,13 @@ $ sudo chmod 600 ~/.ssh/id_rsa.pub`
 $ eval $(ssh-agent -s)`
 ## make ssh agent to actually use copied key
 $ ssh-add ~/.ssh/id_rsa`
+```
+
+## Linux: Use existing public key from Github.
+
+```{bash}
+# import keys from github, this can be used when you already have privatekey, public key and ppk key setup for github (coverted on WinSCP-since WinSCP does not accept OpenSSH keys)
+ssh-import-id-gh <username>
 ```
 
 ## Windows: Use existing ssh keys to setup Git
@@ -56,7 +65,8 @@ $ ssh-add ~/.ssh/id_rsa`
 
 ## Initiate Repository
 
-If it is the first time you are setting up repository files initiate the repository and add origin
+If it is the first time you are setting up repository files initiate the
+repository and add origin
 
 ```{bash}
 # first navigate to the the appropriate folder.
@@ -93,7 +103,8 @@ $ git push -u origin main
 
 ## Run file
 
-Assign executable permission to that file, then file can be run to execute that code to push changes to git.
+Assign executable permission to that file, then file can be run to
+execute that code to push changes to git.
 
 ```{bash}
 $ chown +x gp-filename.sh
