@@ -389,6 +389,82 @@ install the latest stable release of Docker on Linux:</p>
 <p>sudo snap install docker</p>
 <p>sudo apt install docker-compose.</p>
 </div>
+</div>
+</div>
+<div id="post-installation-steps-for-linux" class="section level1">
+<h1><strong>Post-installation steps for Linux</strong></h1>
+<p><em>Estimated reading time: 15 minutes</em></p>
+<p>This section contains optional procedures for configuring Linux hosts
+to work better with Docker.</p>
+<div id="manage-docker-as-a-non-root-user" class="section level2">
+<h2><strong>Manage Docker as a non-root user</strong></h2>
+<p>The Docker daemon binds to a Unix socket instead of a TCP port. By
+default that Unix socket is owned by the user <code>root</code> and
+other users can only access it using <code>sudo</code>. The Docker
+daemon always runs as the <code>root</code> user.</p>
+<p>If you don’t want to preface the <code>docker</code> command with
+<code>sudo</code>, create a Unix group called <code>docker</code> and
+add users to it. When the Docker daemon starts, it creates a Unix socket
+accessible by members of the <code>docker</code> group.</p>
+<blockquote>
+<p><strong>Warning</strong></p>
+<p>The <code>docker</code> group grants privileges equivalent to the
+<code>root</code> user. For details on how this impacts security in your
+system, see <a href="https://docs.docker.com/engine/security/#docker-daemon-attack-surface"><em>Docker
+Daemon Attack Surface</em></a>.</p>
+</blockquote>
+<p>To create the <code>docker</code> group and add your user:</p>
+<ol style="list-style-type: decimal">
+<li><p>Create the <code>docker</code> group.</p>
+<pre><code>$ sudo groupadd docker</code></pre></li>
+<li><p>Add your user to the <code>docker</code> group.</p>
+<pre><code>$ sudo usermod -aG docker $USER</code></pre></li>
+<li><p>Log out and log back in so that your group membership is
+re-evaluated.</p>
+<p>If testing on a virtual machine, it may be necessary to restart the
+virtual machine for changes to take effect.</p>
+<p>On a desktop Linux environment such as X Windows, log out of your
+session completely and then log back in.</p>
+<p>On Linux, you can also run the following command to activate the
+changes to groups:</p>
+<pre><code>$ newgrp docker </code></pre></li>
+<li><p>Verify that you can run <code>docker</code> commands without
+<code>sudo</code>.</p>
+<pre><code>$ docker run hello-world</code></pre>
+<p>This command downloads a test image and runs it in a container. When
+the container runs, it prints a message and exits.</p>
+<p>If you initially ran Docker CLI commands using <code>sudo</code>
+before adding your user to the <code>docker</code> group, you may see
+the following error, which indicates that your <code>~/.docker/</code>
+directory was created with incorrect permissions due to the
+<code>sudo</code> commands.</p>
+<pre><code>WARNING: Error loading config file: /home/user/.docker/config.json -
+stat /home/user/.docker/config.json: permission denied</code></pre>
+<p>To fix this problem, either remove the <code>~/.docker/</code>
+directory (it is recreated automatically, but any custom settings are
+lost), or change its ownership and permissions using the following
+commands:</p>
+<pre><code>$ sudo chown &quot;$USER&quot;:&quot;$USER&quot; /home/&quot;$USER&quot;/.docker -R
+$ sudo chmod g+rwx &quot;$HOME/.docker&quot; -R</code></pre></li>
+</ol>
+</div>
+<div id="configure-docker-to-start-on-boot" class="section level2">
+<h2><strong>Configure Docker to start on boot</strong></h2>
+<p>Most current Linux distributions (RHEL, CentOS, Fedora, Debian,
+Ubuntu 16.04 and higher) use <a href="https://docs.docker.com/config/daemon/systemd/"><code>systemd</code></a>
+to manage which services start when the system boots. On Debian and
+Ubuntu, the Docker service is configured to start on boot by default. To
+automatically start Docker and Containerd on boot for other distros, use
+the commands below:</p>
+<pre><code>$ sudo systemctl enable docker.service
+$ sudo systemctl enable containerd.service</code></pre>
+<p>To disable this behavior, use <code>disable</code> instead.</p>
+<pre><code>$ sudo systemctl disable docker.service
+$ sudo systemctl disable containerd.service</code></pre>
+<p>If you need to add an HTTP Proxy, set a different directory or
+partition for the Docker runtime files, or make other customizations,
+see <a href="https://docs.docker.com/config/daemon/systemd/">customize
+your systemd Docker daemon options</a>.</p>
 <div id="use-script-to-do-full-install" class="section level3">
 <h3>use script to do full install</h3>
 <p>curl -fsSL <a href="https://get.docker.com" class="uri">https://get.docker.com</a> -o get-docker.sh sudo sh
@@ -407,11 +483,11 @@ binaries</p>
 <p>export PATH=/usr/bin:$PATH export
 DOCKER_HOST=unix:///run/user/1001/docker.sock</p>
 <p>Create directory</p>
-<p>mkdir -p ./apps/portainer</p>
-<p>cd ./apps/portainer</p>
+<p>mkdir -p ~/apps/portainer</p>
+<p>cd ~/apps/portainer</p>
 <p>touch docker-compose.yml</p>
 <p>Portainer:</p>
-<p>docker-compose.yml</p>
+<p>sudo nano docker-compose.yml</p>
 <pre class="{bash}"><code>version: &quot;3&quot;
 services:
   portainer:
@@ -428,12 +504,14 @@ services:
     restart: always
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - /volumes/portainer/portainer_data:/data
+      - ~/apps/portainer/portainer_data:/data
     working_dir: /
 networks:
   docker-network:
     external: true
 </code></pre>
+<p>docker network create docker-network</p>
+<p>docker-compose up -d</p>
 </div>
 </div>
 </div>
