@@ -370,16 +370,6 @@ pre code {
 <div id="create-a-virtual-machine" class="section level2">
 <h2>Create a virtual machine</h2>
 </div>
-<div id="assign-a-fixed-ip-address" class="section level2">
-<h2>assign a fixed ip address</h2>
-<p><a href="https://www.youtube.com/watch?v=_9FWri0a9Bo" class="uri">https://www.youtube.com/watch?v=_9FWri0a9Bo</a></p>
-</div>
-<div id="open-ports" class="section level2">
-<h2>open ports</h2>
-<p><a href="https://www.youtube.com/watch?v=SO11Og_WgSs&amp;t=262s" class="uri">https://www.youtube.com/watch?v=SO11Og_WgSs&amp;t=262s</a></p>
-<p>internet gateway &gt; security list &gt; add Ingress rules 80, 443,
-81 for npm</p>
-</div>
 <div id="install-docker" class="section level2">
 <h2>install docker</h2>
 <p>This example downloads the script from get.docker.com and runs it to
@@ -448,6 +438,29 @@ commands:</p>
 $ sudo chmod g+rwx &quot;$HOME/.docker&quot; -R</code></pre></li>
 </ol>
 </div>
+</div>
+<div id="run-docker-commands-without-sudo" class="section level1">
+<h1>Run Docker commands without sudo</h1>
+<div id="add-the-docker-group-if-it-doesnt-already-exist" class="section level5">
+<h5>1. Add the <code>docker</code> group if it doesn’t already
+exist</h5>
+<pre class="console"><code>$ sudo groupadd docker</code></pre>
+</div>
+<div id="add-the-connected-user-user-to-the-docker-group" class="section level5">
+<h5>2. Add the connected user <code>$USER</code> to the docker
+group</h5>
+<p>Optionally change the username to match your preferred user.</p>
+<pre class="console"><code>$ sudo gpasswd -a $USER docker</code></pre>
+<p><strong>IMPORTANT</strong>: Log out and log back in so that your
+group membership is re-evaluated.</p>
+</div>
+<div id="restart-the-docker-daemon" class="section level5">
+<h5>3. Restart the <code>docker</code> daemon</h5>
+<pre class="console"><code>$ sudo service docker restart</code></pre>
+<p>If you are on Ubuntu 14.04-15.10, use <code>docker.io</code>
+instead:</p>
+<pre class="console"><code>$ sudo service docker.io restart</code></pre>
+</div>
 <div id="configure-docker-to-start-on-boot" class="section level2">
 <h2><strong>Configure Docker to start on boot</strong></h2>
 <p>Most current Linux distributions (RHEL, CentOS, Fedora, Debian,
@@ -513,6 +526,20 @@ networks:
 <p>docker network create docker-network</p>
 <p>docker-compose up -d</p>
 </div>
+</div>
+</div>
+<div id="to-access-this-you-need-to-setup-fixed-public-ip-and-ingress-on-port-9000-81-temporarity-and" class="section level1">
+<h1>To access this you need to setup fixed public IP and ingress on port
+9000, 81 temporarity and</h1>
+<div id="assign-a-fixed-ip-address" class="section level2">
+<h2>assign a fixed ip address</h2>
+<p><a href="https://www.youtube.com/watch?v=_9FWri0a9Bo" class="uri">https://www.youtube.com/watch?v=_9FWri0a9Bo</a></p>
+</div>
+<div id="open-ports" class="section level2">
+<h2>open ports</h2>
+<p><a href="https://www.youtube.com/watch?v=SO11Og_WgSs&amp;t=262s" class="uri">https://www.youtube.com/watch?v=SO11Og_WgSs&amp;t=262s</a></p>
+<p>internet gateway &gt; security list &gt; add Ingress rules 80, 443,
+81 for npm, 9000 for portainer</p>
 </div>
 </div>
 

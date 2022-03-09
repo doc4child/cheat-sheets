@@ -8,16 +8,6 @@ editor_options:
 
 ## Create a virtual machine
 
-## assign a fixed ip address
-
-<https://www.youtube.com/watch?v=_9FWri0a9Bo>
-
-## open ports
-
-<https://www.youtube.com/watch?v=SO11Og_WgSs&t=262s>
-
-internet gateway \> security list \> add Ingress rules 80, 443, 81 for npm
-
 ## install docker
 
 This example downloads the script from get.docker.com and runs it to install the latest stable
@@ -93,6 +83,36 @@ To create the `docker` group and add your user:
 
         $ sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
         $ sudo chmod g+rwx "$HOME/.docker" -R
+
+# Run Docker commands without sudo
+
+##### 1. Add the `docker` group if it doesn't already exist
+
+```console
+$ sudo groupadd docker
+```
+
+##### 2. Add the connected user `$USER` to the docker group
+
+Optionally change the username to match your preferred user.
+
+```console
+$ sudo gpasswd -a $USER docker
+```
+
+**IMPORTANT**: Log out and log back in so that your group membership is re-evaluated.
+
+##### 3. Restart the `docker` daemon
+
+```console
+$ sudo service docker restart
+```
+
+If you are on Ubuntu 14.04-15.10, use `docker.io` instead:
+
+```console
+$ sudo service docker.io restart
+```
 
 ## **Configure Docker to start on boot**
 
@@ -171,3 +191,15 @@ networks:
 docker network create docker-network
 
 docker-compose up -d
+
+# To access this you need to setup fixed public IP and ingress on port 9000, 81 temporarity and
+
+## assign a fixed ip address
+
+<https://www.youtube.com/watch?v=_9FWri0a9Bo>
+
+## open ports
+
+<https://www.youtube.com/watch?v=SO11Og_WgSs&t=262s>
+
+internet gateway \> security list \> add Ingress rules 80, 443, 81 for npm, 9000 for portainer
