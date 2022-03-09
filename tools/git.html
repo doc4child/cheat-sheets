@@ -371,8 +371,8 @@ pre code {
 <h2>Basic commands</h2>
 <table>
 <colgroup>
-<col width="61%" />
-<col width="38%" />
+<col width="60%" />
+<col width="40%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -404,7 +404,9 @@ pre code {
 <h2>Linux: Use existing ssh keys</h2>
 <p>If you have a copy of your ssh keys (e.g., on a USB stick) then
 simply copy the key files to the ~/.ssh/ directory.</p>
-<pre class="{bash}"><code>$ cp /path/to/my/key/id_rsa ~/.ssh/id_rsa`
+<pre class="{bash}"><code># When you are loggged in as a perticular user ~/ refers to /home/username
+
+$ cp /path/to/my/key/id_rsa ~/.ssh/id_rsa`
 $ cp /path/to/my/key/id_rsa.pub ~/.ssh/id_rsa.pub`
 ## change permissions on file
 $ sudo chmod 600 ~/.ssh/id_rsa`
@@ -414,13 +416,30 @@ $ eval $(ssh-agent -s)`
 ## make ssh agent to actually use copied key
 $ ssh-add ~/.ssh/id_rsa`</code></pre>
 </div>
+<div id="linux-install-existing-public-key-from-current-computer-or-github-to-remote-server" class="section level2">
+<h2>Linux: Install existing public key from current computer or Github
+to remote server</h2>
+<pre class="{bash}"><code>
+# If you are not logged in and want to copy file from current computer to remote computer use following command.
+
+$ ssh-copy-id username@10.10.10.10
+
+OR
+
+$ ssh username@10.10.10.10 &quot;mkdir -p ~/.ssh &amp;&amp; cat &gt;&gt; ~/.ssh/authorized_keys&quot;
+
+# if you are already logged in and want to import public keys from github, use following command.
+# use this when you already have privatekey, public key and ppk key setup for github (coverted on WinSCP-since WinSCP does not accept OpenSSH keys)
+
+$ ssh-import-id-gh &lt;username&gt;</code></pre>
+</div>
 <div id="windows-use-existing-ssh-keys-to-setup-git" class="section level2">
 <h2>Windows: Use existing ssh keys to setup Git</h2>
 <p>If you have a copy of your ssh keys (e.g., on a USB stick) then
 simply copy the key files to the ~/.ssh/ directory.</p>
 <p>Click from git GUI- Repository &gt; git bash</p>
-<pre class="{bash}"><code>cp &#39;/path/to/Key/id_rsa&#39; /c/Users/username/.ssh/
-cp &#39;/path/to/Key/id_rsa.pub&#39; /c/Users/username/.ssh/
+<pre class="{bash}"><code>$ cp &#39;/path/to/Key/id_rsa&#39; /c/Users/username/.ssh/
+$ cp &#39;/path/to/Key/id_rsa.pub&#39; /c/Users/username/.ssh/
 ## change permissions on file
 $ sudo chmod 600 ~/.ssh/id_rsa`
 $ sudo chmod 600 ~/.ssh/id_rsa.pub`
@@ -468,7 +487,8 @@ $ git push -u origin main
 <h2>Run file</h2>
 <p>Assign executable permission to that file, then file can be run to
 execute that code to push changes to git.</p>
-<pre class="{bash}"><code>$ chown +x gp-filename.sh
+<pre class="{bash}"><code># gp for git-push (name could be anything, but this convention will keep these files together)
+$ chown +x gp-filename.sh
 $ ./gp-filename.sh</code></pre>
 </div>
 <div id="detached-head" class="section level2">
@@ -733,8 +753,8 @@ will not be prompted again unless you remove this file.</p>
 <p>Important If the destination Client is a x86 series model, please
 execute the following command on the destination Client (TS-509) to make
 sure the folder permission has been set correctly. Because there might
-be a permission problem in earlier firmware versions in x86 model (e.g.
-TS-509)</p>
+be a permission problem in earlier firmware versions in x86 model
+(e.g. TS-509)</p>
 <pre class="{bash}"><code>$ chown admin.administrators /mnt/HDA_ROOT/.config</code></pre>
 <p>Note The procedure is the same when setting up key authentication
 between two NAS boxes. Simply follow the steps above substituting a NAS
@@ -792,8 +812,8 @@ destination host (TS-509) under /etc/config/ssh/authorized_keys</li>
 <p>Note If the destination host is a x86 series model, please execute
 the following command in the destination host (TS-509) to make sure the
 folder permission has been set correctly. Because there might be a
-permission problem in earlier firmware versions in x86 model (e.g.
-TS-509)</p>
+permission problem in earlier firmware versions in x86 model
+(e.g. TS-509)</p>
 <pre class="{bash}"><code>$ chown admin.administrators /mnt/HDA_ROOT/.config</code></pre>
 </div>
 </div>
