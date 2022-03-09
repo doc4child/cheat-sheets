@@ -103,6 +103,8 @@ docker-network --hostname portainer --name=portainer --restart=always
 
 ## open ports
 
+
+
 <https://www.youtube.com/watch?v=SO11Og_WgSs&t=262s>
 
 internet gateway \> security list \> add Ingress rules 80, 443, 81 for npm, 9000 for portainer
