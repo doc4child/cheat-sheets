@@ -9,7 +9,7 @@ editor_options:
 ## Basic commands
 
 |                                                                      COMMAND | DESCRIPTION                                    |
-|-----------------------------------------------------------:|:---------------------------------------|
+|-----------------------------------------------------------------------------:|:-----------------------------------------------|
 |                                   `git config --global user.name "John Doe"` | Set username                                   |
 | `git config --global user.email "29556646+account@users.noreply.github.com"` | Set email                                      |
 |                                `git config --global init.defaultBranch main` | Setup default branch to main instead of master |
