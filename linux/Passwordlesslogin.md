@@ -18,6 +18,6 @@ ls -al
 
 if does not exit then copy public key as authorized_key
 
-ssh-import-id-gh <github username>
+ssh-import-id-gh \<github username\>
 
 now you should be able to login as root
