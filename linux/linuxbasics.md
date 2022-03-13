@@ -12,6 +12,11 @@ COMMAND | DESCRIPTION
 `chmod +x filename` | to make file executable
 `sudo chown -R username:groupname ./foldername` |to assign ownership of user and group to folder
 
+## Keyboard shortcuts
+COMMAND | DESCRIPTION
+---:|:---
+`Ctrl+L` | takes the command line at the top of console
+`Ctrl+D` | disconnect or exit (to go back to user from root etc)
 
 ## System commands
 COMMAND | DESCRIPTION
@@ -26,12 +31,12 @@ COMMAND | DESCRIPTION
 `sudo !!` | to run previous command with sudo
 `history` | to see history
 `!123` | to run no 123 command in history
-`Ctrl+L` | takes the command line at the top of console
 `clear` | to clear console
 
 
 ## Cloud-init
 sudo nano /etc/cloud/cloud.cfg
+
 
 
 
