@@ -37,6 +37,8 @@ COMMAND | DESCRIPTION
 ## Cloud-init
 sudo nano /etc/cloud/cloud.cfg
 
+https://www.youtube.com/watch?v=exeuvgPxd-E
+
 
 
 
