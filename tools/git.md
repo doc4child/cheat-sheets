@@ -53,7 +53,10 @@ from container as root install openssh-client
 
 apt-get install openssh-clientssh
 
+now test connection
+ssh -T git@github.com
 
+you may have to create known hosts file and give 777 permissions
 ## Linux: Install existing public key from current computer or Github to remote server
 
 ```{bash}
