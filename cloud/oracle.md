@@ -118,6 +118,10 @@ Note the destination hostnames
 
 Once these are setup properly may delete ingress rules for port 9000 and 81
 
+# other containers need to be accessed using
+
+hostname:80 (inside the container port not the hostport)
+
 # not sure if following will work
 
 # touch docker-compose.yml
