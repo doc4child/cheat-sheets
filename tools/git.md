@@ -62,7 +62,10 @@ you may have to create known hosts file and give 777 permissions, once done chmo
    ls
    touch known_hosts
    chmod 777 known_hosts
-   chmod 644 known_hosts
+   
+   chown doc4child:doc4child known_hosts
+
+
 
 
 ## Linux: Install existing public key from current computer or Github to remote server
