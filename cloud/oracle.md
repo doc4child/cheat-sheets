@@ -1,8 +1,4 @@
----
-editor_options: 
-  markdown: 
-    wrap: 100
----
+
 
 # Oracle cloud
 
@@ -10,6 +6,9 @@ editor_options:
 
 use Ubuntu image use id_rsa.pub key select fixed ip as ip address
 <https://www.youtube.com/watch?v=_9FWri0a9Bo>
+
+### change password for ubuntu
+sudo passwd ubuntu
 
 ## install docker <https://docs.docker.com/engine/install/ubuntu/>
 

@@ -34,6 +34,40 @@ $ eval $(ssh-agent -s)`
 $ ssh-add ~/.ssh/id_rsa`
 ```
 
+## For rstudio container exec as bash to setup git
+
+docker exec -it rstudio /bin/bash
+cd /home/username
+mkdir .ssh
+
+copy id_rsa to host linux /volumes/rstudio/home directory
+
+That directory is /home/rstudio inside the container you should find that file there.
+copy that file to container_user's home directory which is /home/container_user/.ssh
+
+cp /home/rstudio/id_rsa /home/container_user/.ssh/
+
+now it is available for authorization for user
+
+from container as root install openssh-client
+
+apt-get install openssh-clientssh
+
+now test connection
+ssh -T git@github.com
+
+you may have to create known hosts file and give 777 permissions, once done chmod 644
+
+   cd /home/doc4child/.ssh
+   ls
+   touch known_hosts
+   chmod 777 known_hosts
+   
+   chown doc4child:doc4child known_hosts
+
+
+
+
 ## Linux: Install existing public key from current computer or Github to remote server
 
 ```{bash}
