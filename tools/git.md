@@ -56,7 +56,15 @@ apt-get install openssh-clientssh
 now test connection
 ssh -T git@github.com
 
-you may have to create known hosts file and give 777 permissions
+you may have to create known hosts file and give 777 permissions, once done chmod 644
+
+   cd /home/doc4child/.ssh
+   ls
+   touch known_hosts
+   chmod 777 known_hosts
+   chmod 644 known_hosts
+
+
 ## Linux: Install existing public key from current computer or Github to remote server
 
 ```{bash}
