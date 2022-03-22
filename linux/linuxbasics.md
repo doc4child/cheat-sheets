@@ -41,5 +41,34 @@ https://www.youtube.com/watch?v=exeuvgPxd-E
 
 
 
+## Aliases in Linux
 
+### To create permanent alias you can add it to .bashrc file like below
 
+```
+echo "alias up='sudo apt update && sudo apt upgrade'" >> ~/.bashrc
+```
+
+https://fossbytes.com/alias-in-linux-how-to-use-create-permanent-aliases/
+
+### seperate aliases in different file for organization
+
+create ~/.bash_aliases file and have it included in ~/.bashrc
+
+```
+touch ~/.bash_aliases
+
+nano ~/.bash_aliases
+```
+Add aliases here
+
+```
+alias up='sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove && sudo apt-get autoclean'
+```
+Then edit ~/.bashrc to include following code if not there already
+
+```
+if [ -e ~/.bash_aliases ]; then
+source ~/.bash_aliases
+fi
+```
