@@ -2,7 +2,7 @@
 
 These are my Cheat-Sheets I use for various projects, tools and technologies. They are separated in sections like [DevOps Tools](https://github.com/xcad2k/cheat-sheets/tree/main/devops), [Infrastructure](https://github.com/xcad2k/cheat-sheets/tree/main/infrastructure), [Cybersecurity](https://github.com/xcad2k/cheat-sheets/tree/main/cybersecurity), and much more.
 
-I created them as free resources to be used in your specific use cases. If you're searching for detailed, in-depth tutorials on some tools or technologies, check out my YouTube Channel: [The Digital Life](https://www.youtube.com/channel/UCZNhwA1B5YqiY1nLzmM0ZRg).
+I created them as free resources to be used in your specific use cases. If you're searching for detailed, in-depth tutorials on some tools or technologies, check out YouTube Channel: [The Digital Life](https://www.youtube.com/channel/UCZNhwA1B5YqiY1nLzmM0ZRg).
 
 ### Warning
 
