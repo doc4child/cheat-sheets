@@ -7,7 +7,7 @@
 apt-get install lynis
 ```
 
-## Including Plots
+## Install necessary packages
 
 You can also embed plots, for example:
 
