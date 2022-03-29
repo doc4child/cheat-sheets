@@ -99,12 +99,12 @@ Restore the volume with a tarball archive.
 
 ## Logs
 
-* Find File size of all logs *
+* Find File size of all logs 
 
 `sudo sh -c "du -ch /var/lib/docker/containers/*/*-json.log"`
 
 
-* Run the below command to find and clear all Docker container logs on your server. *
+* Run the below command to find and clear all Docker container logs on your server. 
 
 WARNING: This process is non-reversable
 `for container in $(docker ps --format '{{.Names}}'); do logfile=$(docker inspect $container -f '{{.LogPath}}'); truncate -s 0 $logfile; done`
@@ -113,7 +113,7 @@ OR
 
 `sudo sh -c 'truncate -s 0 /var/lib/docker/containers/*/*-json.log'`
 
-* Rotate the log periodically. *
+* Rotate the log periodically. 
 
 Create /etc/logrotate.d/docker-logs, and add the following to the file:
 ```
@@ -127,6 +127,8 @@ Create /etc/logrotate.d/docker-logs, and add the following to the file:
  copytruncate
 }
 ```
+https://birkhoff.me/devops-truncate-docker-container-logs-periodically-to-free-up-server-disk-space/
+
 ## Create docker compose file from running container.
 
 `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/red5d/docker-autocompose <container-name-or-id> <additional-names-or-ids>...`
