@@ -94,6 +94,13 @@ docker-network --hostname portainer --name=portainer --restart=always
 --label=com.centurylinklabs.watchtower.enable=true -v /var/run/docker.sock:/var/run/docker.sock -v
 /volumes/portainer/portainer\_<data:/data> cr.portainer.io/portainer/portainer-ce:latest
 
+
+docker run -d -p 9000:9000 --domainname portainer.doc4child.com --network
+docker-network --hostname portainer --name=portainer --restart=always
+--label=com.centurylinklabs.watchtower.enable=true -v /var/run/docker.sock:/var/run/docker.sock -v
+/volumes/portainer/portainer\_<data:/data> cr.portainer.io/portainer/portainer-ce:latest
+
+
 # To access this you need to setup fixed public IP and ingress on port 9000, 81 temporarity and
 
 ## assign a fixed ip address

@@ -6,6 +6,11 @@ Portainer default:
 https://raw.githubusercontent.com/portainer/templates/master/templates-2.0.json
 
 
+https://raw.githubusercontent.com/mycroftwilde/portainer_templates/master/Template/template.json
+
+https://raw.githubusercontent.com/ntv-one/portainer/main/template.json 
+
+
 https://raw.githubusercontent.com/dnburgess/self-hosted-template/master/template.json
 
 https://raw.githubusercontent.com/Qballjos/portainer_templates/master/Template/template.json
@@ -16,6 +21,5 @@ https://raw.githubusercontent.com/technorabilia/portainer-templates/main/lsio/te
 
 https://raw.githubusercontent.com/mikestraney/portainer-templates/master/templates.json
 
-https://raw.githubusercontent.com/mycroftwilde/portainer_templates/master/Template/template.json
 
-https://raw.githubusercontent.com/ntv-one/portainer/main/template.json 
+
