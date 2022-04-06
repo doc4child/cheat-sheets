@@ -100,6 +100,14 @@ docker-network --hostname portainer --name=portainer --restart=always
 --label=com.centurylinklabs.watchtower.enable=true -v /var/run/docker.sock:/var/run/docker.sock -v
 /volumes/portainer/portainer\_<data:/data> cr.portainer.io/portainer/portainer-ce:latest
 
+## yacht
+
+docker run -d -p 8000:8000 --domainname yacht.doc4child.com --network docker-network --hostname yacht --name=yacht -e PUID=1000 -e PGID=1000 --restart=always --label=com.centurylinklabs.watchtower.enable=true -v /var/run/docker.sock:/var/run/docker.sock -v /mnt/yacht:/config selfhostedpro/yacht
+
+admin@yacht.local
+pass
+
+docker run -d -p 8000:8000 --domainname yacht.doc4child.com --network docker-network --hostname yacht --name=yacht -e PUID=1000 -e PGID=1000 --restart=always --label=com.centurylinklabs.watchtower.enable=true -v /var/run/docker.sock:/var/run/docker.sock -v yacht:/config selfhostedpro/yacht
 
 # To access this you need to setup fixed public IP and ingress on port 9000, 81 temporarity and
 
