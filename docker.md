@@ -134,3 +134,11 @@ https://birkhoff.me/devops-truncate-docker-container-logs-periodically-to-free-u
 `docker run --rm -v /var/run/docker.sock:/var/run/docker.sock ghcr.io/red5d/docker-autocompose <container-name-or-id> <additional-names-or-ids>...`
 
 https://stackoverflow.com/questions/68881240/is-there-possibility-in-portainer-to-create-docker-compose-yml-file-from-running
+
+## Create docker-compose file from the docker command
+
+Use followig website to create it
+https://www.composerize.com/
+
+or follow this guide to install it locally.
+https://www.youtube.com/watch?v=wrnj6SUoWGs

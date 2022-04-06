@@ -19,3 +19,8 @@ apt-get install apt-listbugs apt-listchanges checkrestart needrestart debsecan d
 ## Vault in Docker
 
 https://www.misterpki.com/vault-docker/
+
+
+## remove secrets
+
+https://stackoverflow.com/questions/57987355/remove-sensitive-information-from-environment-variables-in-postgres-docker-conta
