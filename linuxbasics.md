@@ -43,10 +43,10 @@ https://www.youtube.com/watch?v=exeuvgPxd-E
 
 ## Aliases in Linux
 
-### To create permanent alias you can add it to .bashrc file like below
+### To create permanent up2date alias you can add it to .bash_alias file like below, for this .bashrc shoudl have code as stated below
 
 ```
-echo "alias up='sudo apt update && sudo apt upgrade'" >> ~/.bashrc
+echo "alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'" >> ~/.bash_aliases
 ```
 
 https://fossbytes.com/alias-in-linux-how-to-use-create-permanent-aliases/
@@ -63,7 +63,7 @@ nano ~/.bash_aliases
 Add aliases here
 
 ```
-alias up='sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove && sudo apt-get autoclean'
+alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'
 ```
 Then edit ~/.bashrc to include following code if not there already
 
