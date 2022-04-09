@@ -47,7 +47,17 @@ https://www.youtube.com/watch?v=exeuvgPxd-E
 
 ```
 echo "alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'" >> ~/.bash_aliases
+echo "alias d='docker'" >> ~/.bash_aliases
+echo "alias k='kubectl'" >> ~/.bash_aliases
+echo "
+function dex-fn {
+	docker exec -it \$1 \${2:-bash}
+}
+alias dex=dex-fn" >> ~/.bash_aliases
 ```
+docker aliases:
+
+https://gist.github.com/jgrodziski/9ed4a17709baad10dbcd4530b60dfcbb
 
 https://fossbytes.com/alias-in-linux-how-to-use-create-permanent-aliases/
 
@@ -72,3 +82,12 @@ if [ -e ~/.bash_aliases ]; then
 source ~/.bash_aliases
 fi
 ```
+
+
+# Remove mac ._ garbage
+
+Go to folder from linux shell
+
+```
+find . -type f -name '._*' -delete
+````
