@@ -40,6 +40,9 @@ sudo nano /etc/cloud/cloud.cfg
 https://www.youtube.com/watch?v=exeuvgPxd-E
 
 
+## zsh
+
+https://blog.joaograssi.com/windows-subsystem-for-linux-with-oh-my-zsh-conemu/
 
 ## Aliases in Linux
 
