@@ -45,7 +45,7 @@ https://www.youtube.com/watch?v=exeuvgPxd-E
 https://blog.joaograssi.com/windows-subsystem-for-linux-with-oh-my-zsh-conemu/
 
 ## Aliases in Linux
-### seperate aliases in different file for organization
+### Create a seperate aliases file for organization
 
 create ~/.bash_aliases file and have it included in ~/.bashrc
 
@@ -55,15 +55,28 @@ touch ~/.bash_aliases
 nano ~/.bash_aliases
 ```
 #### Add aliases in this file 
+##### Method 1: Permanent up2date alias can be added to .bash_alias file like below.
+
+```
+echo "alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'" >> ~/.bash_aliases
+```
+```
+echo "alias d='docker'" >> ~/.bash_aliases
+```
+```
+echo "alias k='kubectl'" >> ~/.bash_aliases
+```
+##### Method 2: Permanent alias can be added by writing in the file as under.
 
 ```
 sudo nano ~/.bash_aliases
 
 ```
-add following line and similar to this file
+add following line and similar aliases to this file
 ```
 alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'
 ```
+
 #### Then edit ~/.bashrc to include following code if not there already
 
 ```
@@ -72,14 +85,8 @@ source ~/.bash_aliases
 fi
 ```
 
-#### Permanent up2date alias can be added to .bash_alias file like below as well.
 
-```
-echo "alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'" >> ~/.bash_aliases
-echo "alias d='docker'" >> ~/.bash_aliases
-echo "alias k='kubectl'" >> ~/.bash_aliases
-```
-#### Finally, re-read bashrc file again by
+#### Finally, re-read bashrc file
 
 ```
 source ~/.bashrc
