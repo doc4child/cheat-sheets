@@ -45,23 +45,6 @@ https://www.youtube.com/watch?v=exeuvgPxd-E
 https://blog.joaograssi.com/windows-subsystem-for-linux-with-oh-my-zsh-conemu/
 
 ## Aliases in Linux
-
-### To create permanent up2date alias you can add it to .bash_alias file like below, for this .bashrc shoudl have code as stated below
-
-```
-echo "alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'" >> ~/.bash_aliases
-echo "alias d='docker'" >> ~/.bash_aliases
-echo "alias k='kubectl'" >> ~/.bash_aliases
-```
-
-https://gist.github.com/doc4child/18073e6223acacb945767064eb93331f
-
-Modified from:
-
-https://gist.github.com/jgrodziski/9ed4a17709baad10dbcd4530b60dfcbb
-
-https://fossbytes.com/alias-in-linux-how-to-use-create-permanent-aliases/
-
 ### seperate aliases in different file for organization
 
 create ~/.bash_aliases file and have it included in ~/.bashrc
@@ -71,18 +54,47 @@ touch ~/.bash_aliases
 
 nano ~/.bash_aliases
 ```
-Add aliases here
+#### Add aliases in this file 
 
+```
+sudo nano ~/.bash_aliases
+
+```
+add following line and similar to this file
 ```
 alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'
 ```
-Then edit ~/.bashrc to include following code if not there already
+#### Then edit ~/.bashrc to include following code if not there already
 
 ```
 if [ -e ~/.bash_aliases ]; then
 source ~/.bash_aliases
 fi
 ```
+
+#### Permanent up2date alias can be added to .bash_alias file like below as well.
+
+```
+echo "alias up2date='sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get autoremove -y && sudo apt-get autoclean -y'" >> ~/.bash_aliases
+echo "alias d='docker'" >> ~/.bash_aliases
+echo "alias k='kubectl'" >> ~/.bash_aliases
+```
+#### Finally, re-read bashrc file again by
+
+```
+source ~/.bashrc
+```
+
+
+https://gist.github.com/doc4child/18073e6223acacb945767064eb93331f
+
+Modified from:
+
+https://gist.github.com/jgrodziski/9ed4a17709baad10dbcd4530b60dfcbb
+
+https://fossbytes.com/alias-in-linux-how-to-use-create-permanent-aliases/
+
+
 
 
 # Remove mac ._ garbage
