@@ -14,6 +14,7 @@ login as root
 
 do "ip a" command to find out the ip address assigned to wifi interface.
 
+if IP is not assigned use "omv-firstaid" to configure network interface.
 use IP add to open the omv web interface from different computer on the same network
 
 Right upper corner person icon click on it.
@@ -22,3 +23,6 @@ Select dashboard widgets.
 
 install upgrades from the dashboard select upgrades and install them, it might take a while.
 https://www.youtube.com/watch?v=1QmA_JiWzG8
+
+Docker Portainer install
+https://www.youtube.com/watch?v=y-OWVwpoGow&list=PL7IO8NXt9zRmNB43lCvDZwK2tsaPpswwC
