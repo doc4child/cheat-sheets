@@ -30,6 +30,9 @@ https://www.youtube.com/watch?v=1QmA_JiWzG8
 login using ssh root@192.168.1.xx
 wget -O - https://github.com/OpenMediaVault-Plugin-Developers/packages/raw/master/install | bash
 
+Click on web interface System>omv-extras enable docker
+go to plugins and install compose plugin.
+
 
 ## Docker Portainer install
 https://www.youtube.com/watch?v=y-OWVwpoGow&list=PL7IO8NXt9zRmNB43lCvDZwK2tsaPpswwC
