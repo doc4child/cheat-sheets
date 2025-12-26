@@ -1,8 +1,8 @@
 # OMV 8
 
-User Rufus to burn ISO to USB (Use USB3 blue 32 gb for faster)
+User Rufus to burn ISO to usb naming this USB1 (Use USB- blue 32 gb usb3 for faster interface)
 
-Use the 16gb usb2 (scandisk minimum profile to install it on)
+Use the 16gb calling this USB2 (scandisk minimum profile/small sticking out to install it on)
 
 give machine name
 domain name
@@ -14,7 +14,7 @@ login as root
 
 do "ip a" command to find out the ip address assigned to wifi interface.
 
-if IP is not assigned use "omv-firstaid" to configure network interface.
+if IP is not assigned use "omv-firstaid" to configure network interface. (as root)
 use IP add to open the omv web interface from different computer on the same network
 
 Right upper corner person icon click on it.
