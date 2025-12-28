@@ -8,6 +8,7 @@ ZimaOS boot screen
 to enter CLI use Alt +F2
 
 login as root blank pwd.
+change root password by using command - passwd-root
 
 use nmtui to enter wifi settings and connect to wifi
 
