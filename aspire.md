@@ -1,3 +1,5 @@
+## Zima OS install and setup
+
 for Boot
 
 For Zima os had to change to UEFI and create std password for secutiry and disable secure boot option 
