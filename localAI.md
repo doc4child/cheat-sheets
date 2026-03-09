@@ -41,6 +41,19 @@ From terminal use these commands to tell claude code to use this oss model.
 
 export ANTHROPIC_BASE_URL="http://localhost:11434"
 export ANTHROPIC_AUTH_TOKEN="token"
+
+```
+
+```
+
 claude --model gpt-oss:20b
+
+```
+
+
+
+```
+
+claude --model qwen2.5-coder:7b
 
 ```
